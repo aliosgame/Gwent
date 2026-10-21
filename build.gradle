@@ -1,0 +1,71 @@
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0'
+}
+
+group = 'gwent'
+version = '0.1.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+        vendor = JvmVendorSpec.AZUL
+    }
+    modularity.inferModulePath = true
+}
+
+base {
+    archivesName = 'gwent'
+}
+
+application {
+    mainModule = 'gwent'
+    mainClass = 'gwent.launch.GwentApp'
+    applicationDefaultJvmArgs = [
+            '--enable-native-access=javafx.graphics,javafx.media'
+    ]
+}
+
+javafx {
+    version = '25.0.5'
+    modules = ['javafx.controls', 'javafx.media']
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.14.4')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.release = 25
+}
+
+tasks.named('test', Test) {
+    useJUnitPlatform()
+}
+
+// Будущие таски: packageWindows, packageLinux, packageMac.
+// Каждый запускается на своей ОС. jpackage не кросс-компилирует:
+// exe собирается на Windows, образ приложения на Linux, dmg на macOS.
+// Друзьям без установленной Java отдаётся именно этот образ, а не jar.
+//
+// Общие входы уже зафиксированы здесь, отдельные таски их только читают:
+//   модуль      application.mainModule   (gwent)
+//   класс       application.mainClass    (gwent.launch.GwentApp)
+//   JavaFX      javafx.modules           (controls, media)
+//   вывод       build/dist/windows | linux | mac
+//
+// Команда, когда дойдём до упаковки:
+//   jpackage --type exe|app-image|dmg --name Gwent
+//            --module gwent/gwent.launch.GwentApp
+//            --module-path <jlink-рантайм с JavaFX>
+//            --dest build/dist/<os>
+//
+// Точка входа — обычный javafx.application.Application.
+// Отдельный загрузчик jar сюда не подмешивается, иначе jpackage и run разъедутся.
