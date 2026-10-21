@@ -12,12 +12,18 @@ import javafx.scene.layout.VBox;
 public final class InfoView {
     private final String title;
     private final String message;
-    private final Navigator navigator;
+    private final String backCaption;
+    private final Runnable back;
 
     public InfoView(String title, String message, Navigator navigator) {
+        this(title, message, "Назад", navigator::showMainMenu);
+    }
+
+    public InfoView(String title, String message, String backCaption, Runnable back) {
         this.title = title;
         this.message = message;
-        this.navigator = navigator;
+        this.backCaption = backCaption;
+        this.back = back;
     }
 
     public Parent create() {
@@ -29,9 +35,9 @@ public final class InfoView {
         body.getStyleClass().add("body");
         body.setWrapText(true);
 
-        Button back = new Button("Назад");
+        Button back = new Button(backCaption);
         back.getStyleClass().add("gwent-button");
-        back.setOnAction(event -> navigator.showMainMenu());
+        back.setOnAction(event -> this.back.run());
 
         VBox column = new VBox(18, heading, SceneShell.rule(), body, back);
         column.setAlignment(Pos.CENTER_LEFT);

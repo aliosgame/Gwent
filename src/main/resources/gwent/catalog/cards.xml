@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<cards>
+    <card id="1" name="Гребаная пехтура" faction="NORTHERN_REALMS" copies="3" kind="UNIT" strength="1" rows="MELEE" ability="TIGHT_BOND"/>
+    <card id="2" name="Реданский пехотинец" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="1" rows="MELEE"/>
+    <card id="3" name="Реданский пехотинец" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="1" rows="MELEE"/>
+    <card id="4" name="Каэдвенский осадный мастер" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="1" rows="SIEGE" ability="MORALE"/>
+    <card id="5" name="Каэдвенский осадный мастер" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="1" rows="SIEGE" ability="MORALE"/>
+    <card id="6" name="Каэдвенский осадный мастер" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="1" rows="SIEGE" ability="MORALE"/>
+    <card id="7" name="Талер" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="1" rows="SIEGE" ability="SPY" playsOn="OPPONENT"/>
+    <card id="8" name="Ярпен Зигрин" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="2" rows="MELEE"/>
+    <card id="9" name="Шелдон Скаггс" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="4" rows="RANGED"/>
+    <card id="10" name="Боец Синих Полосок" faction="NORTHERN_REALMS" copies="3" kind="UNIT" strength="4" rows="MELEE" ability="TIGHT_BOND"/>
+    <card id="11" name="Сигизмунд Дийкстра" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="4" rows="MELEE" ability="SPY" playsOn="OPPONENT"/>
+    <card id="12" name="Сабрина Глевиссиг" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="4" rows="RANGED"/>
+    <card id="13" name="Вес" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="5" rows="MELEE"/>
+    <card id="14" name="Зигфрид из Денесле" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="5" rows="MELEE"/>
+    <card id="15" name="Принц Стеннис" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="5" rows="MELEE" ability="SPY" playsOn="OPPONENT"/>
+    <card id="16" name="Кейра Мец" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="5" rows="RANGED"/>
+    <card id="17" name="Шеала де Тансервилль" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="5" rows="RANGED"/>
+    <card id="18" name="Рубайлы из Кринфрида" faction="NORTHERN_REALMS" copies="3" kind="UNIT" strength="5" rows="RANGED" ability="TIGHT_BOND"/>
+    <card id="19" name="Лекарь Бурой Хоругви" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="5" rows="SIEGE" ability="MEDIC"/>
+    <card id="20" name="Детмольд" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="6" rows="RANGED"/>
+    <card id="21" name="Требушет" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="6" rows="SIEGE"/>
+    <card id="22" name="Требушет" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="6" rows="SIEGE"/>
+    <card id="23" name="Баллиста" faction="NORTHERN_REALMS" copies="2" kind="UNIT" strength="6" rows="SIEGE"/>
+    <card id="24" name="Осадная Башня" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="6" rows="SIEGE"/>
+    <card id="25" name="Катапульта" faction="NORTHERN_REALMS" copies="2" kind="UNIT" strength="8" rows="SIEGE" ability="TIGHT_BOND"/>
+    <card id="26" name="Вернон Роше" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="10" rows="MELEE" hero="true"/>
+    <card id="27" name="Эстерад Тиссен" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="10" rows="MELEE" hero="true"/>
+    <card id="28" name="Ян Наталис" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="10" rows="MELEE" hero="true"/>
+    <card id="29" name="Филиппа Эйльхарт" faction="NORTHERN_REALMS" copies="1" kind="UNIT" strength="10" rows="RANGED" hero="true"/>
+    <card id="30" name="Лекарь-гавенкар" faction="SCOIATAEL" copies="1" kind="UNIT" strength="0" rows="RANGED" ability="MEDIC"/>
+    <card id="31" name="Лекарь-гавенкар" faction="SCOIATAEL" copies="1" kind="UNIT" strength="0" rows="RANGED" ability="MEDIC"/>
+    <card id="32" name="Лекарь-гавенкар" faction="SCOIATAEL" copies="1" kind="UNIT" strength="0" rows="RANGED" ability="MEDIC"/>
+    <card id="33" name="Риордаин" faction="SCOIATAEL" copies="1" kind="UNIT" strength="1" rows="RANGED"/>
+    <card id="34" name="Торувьель" faction="SCOIATAEL" copies="1" kind="UNIT" strength="2" rows="RANGED"/>
+    <card id="35" name="Эльфский застрельщик" faction="SCOIATAEL" copies="1" kind="UNIT" strength="2" rows="RANGED" ability="MUSTER" muster="elven-skirmisher"/>
+    <card id="36" name="Эльфский застрельщик" faction="SCOIATAEL" copies="1" kind="UNIT" strength="2" rows="RANGED" ability="MUSTER" muster="elven-skirmisher"/>
+    <card id="37" name="Эльфский застрельщик" faction="SCOIATAEL" copies="1" kind="UNIT" strength="2" rows="RANGED" ability="MUSTER" muster="elven-skirmisher"/>
+    <card id="38" name="Краснолюд-застрельщик" faction="SCOIATAEL" copies="1" kind="UNIT" strength="3" rows="MELEE" ability="MUSTER" muster="dwarven-skirmisher"/>
+    <card id="39" name="Краснолюд-застрельщик" faction="SCOIATAEL" copies="1" kind="UNIT" strength="3" rows="MELEE" ability="MUSTER" muster="dwarven-skirmisher"/>
+    <card id="40" name="Краснолюд-застрельщик" faction="SCOIATAEL" copies="1" kind="UNIT" strength="3" rows="MELEE" ability="MUSTER" muster="dwarven-skirmisher"/>
+    <card id="41" name="Киаран аэп Эасниллен" faction="SCOIATAEL" copies="1" kind="UNIT" strength="3" rows="MELEE,RANGED"/>
+    <card id="42" name="Кадет Врихедда" faction="SCOIATAEL" copies="1" kind="UNIT" strength="4" rows="RANGED"/>
+    <card id="43" name="Лучник из Дол Блатанны" faction="SCOIATAEL" copies="1" kind="UNIT" strength="4" rows="RANGED"/>
+    <card id="44" name="Махакамские добровольцы" faction="SCOIATAEL" copies="1" kind="UNIT" strength="5" rows="MELEE"/>
+    <card id="45" name="Махакамские добровольцы" faction="SCOIATAEL" copies="1" kind="UNIT" strength="5" rows="MELEE"/>
+    <card id="46" name="Махакамские добровольцы" faction="SCOIATAEL" copies="1" kind="UNIT" strength="5" rows="MELEE"/>
+    <card id="47" name="Махакамские добровольцы" faction="SCOIATAEL" copies="1" kind="UNIT" strength="5" rows="MELEE"/>
+    <card id="48" name="Махакамские добровольцы" faction="SCOIATAEL" copies="1" kind="UNIT" strength="5" rows="MELEE"/>
+    <card id="49" name="Поддержка гавенкаров" faction="SCOIATAEL" copies="1" kind="UNIT" strength="5" rows="MELEE" ability="MUSTER" muster="havekar-smuggler"/>
+    <card id="50" name="Поддержка гавенкаров" faction="SCOIATAEL" copies="1" kind="UNIT" strength="5" rows="MELEE" ability="MUSTER" muster="havekar-smuggler"/>
+    <card id="51" name="Поддержка гавенкаров" faction="SCOIATAEL" copies="1" kind="UNIT" strength="5" rows="MELEE" ability="MUSTER" muster="havekar-smuggler"/>
+    <card id="52" name="Бригада Врихедд" faction="SCOIATAEL" copies="1" kind="UNIT" strength="5" rows="MELEE,RANGED"/>
+    <card id="53" name="Бригада Врихедд" faction="SCOIATAEL" copies="1" kind="UNIT" strength="5" rows="MELEE,RANGED"/>
+    <card id="54" name="Деннис Кранмер" faction="SCOIATAEL" copies="1" kind="UNIT" strength="6" rows="MELEE"/>
+    <card id="55" name="Ида Эмеан" faction="SCOIATAEL" copies="1" kind="UNIT" strength="6" rows="RANGED"/>
+    <card id="56" name="Яевинн" faction="SCOIATAEL" copies="1" kind="UNIT" strength="6" rows="MELEE,RANGED"/>
+    <card id="57" name="Филавандрель" faction="SCOIATAEL" copies="1" kind="UNIT" strength="6" rows="MELEE,RANGED"/>
+    <card id="58" name="Барклай Эльс" faction="SCOIATAEL" copies="1" kind="UNIT" strength="6" rows="MELEE,RANGED"/>
+    <card id="59" name="Следопыт из Дол Блатанны" faction="SCOIATAEL" copies="1" kind="UNIT" strength="6" rows="MELEE,RANGED"/>
+    <card id="60" name="Следопыт из Дол Блатанны" faction="SCOIATAEL" copies="1" kind="UNIT" strength="6" rows="MELEE,RANGED"/>
+    <card id="61" name="Следопыт из Дол Блатанны" faction="SCOIATAEL" copies="1" kind="UNIT" strength="6" rows="MELEE,RANGED"/>
+    <card id="62" name="Ширру" faction="SCOIATAEL" copies="1" kind="UNIT" strength="8" rows="SIEGE" ability="SCORCH_SIEGE"/>
+    <card id="63" name="Мильва" faction="SCOIATAEL" copies="1" kind="UNIT" strength="10" rows="RANGED" ability="MORALE"/>
+    <card id="64" name="Изенгрим Фаоильтиарна" faction="SCOIATAEL" copies="1" kind="UNIT" strength="10" rows="MELEE" hero="true" ability="MORALE"/>
+    <card id="65" name="Эитнэ" faction="SCOIATAEL" copies="1" kind="UNIT" strength="10" rows="RANGED" hero="true"/>
+    <card id="66" name="Саэсентессис" faction="SCOIATAEL" copies="1" kind="UNIT" strength="10" rows="RANGED" hero="true"/>
+    <card id="67" name="Иорвет" faction="SCOIATAEL" copies="1" kind="UNIT" strength="10" rows="RANGED" hero="true"/>
+    <card id="68" name="Гуль" faction="MONSTERS" copies="1" kind="UNIT" strength="1" rows="MELEE" ability="MUSTER" muster="ghoul"/>
+    <card id="69" name="Гуль" faction="MONSTERS" copies="1" kind="UNIT" strength="1" rows="MELEE" ability="MUSTER" muster="ghoul"/>
+    <card id="70" name="Гуль" faction="MONSTERS" copies="1" kind="UNIT" strength="1" rows="MELEE" ability="MUSTER" muster="ghoul"/>
+    <card id="71" name="Накер" faction="MONSTERS" copies="1" kind="UNIT" strength="2" rows="MELEE" ability="MUSTER" muster="nekker"/>
+    <card id="72" name="Накер" faction="MONSTERS" copies="1" kind="UNIT" strength="2" rows="MELEE" ability="MUSTER" muster="nekker"/>
+    <card id="73" name="Накер" faction="MONSTERS" copies="1" kind="UNIT" strength="2" rows="MELEE" ability="MUSTER" muster="nekker"/>
+    <card id="74" name="Туманник" faction="MONSTERS" copies="1" kind="UNIT" strength="2" rows="MELEE"/>
+    <card id="75" name="Виверна" faction="MONSTERS" copies="1" kind="UNIT" strength="2" rows="RANGED"/>
+    <card id="76" name="Гаргулья" faction="MONSTERS" copies="1" kind="UNIT" strength="2" rows="RANGED"/>
+    <card id="77" name="Эндриага" faction="MONSTERS" copies="1" kind="UNIT" strength="2" rows="RANGED"/>
+    <card id="78" name="Василиск" faction="MONSTERS" copies="1" kind="UNIT" strength="2" rows="RANGED"/>
+    <card id="79" name="Гарпия келено" faction="MONSTERS" copies="1" kind="UNIT" strength="2" rows="MELEE,RANGED"/>
+    <card id="80" name="Гарпия" faction="MONSTERS" copies="1" kind="UNIT" strength="2" rows="MELEE,RANGED"/>
+    <card id="81" name="Игоша" faction="MONSTERS" copies="1" kind="UNIT" strength="4" rows="MELEE"/>
+    <card id="82" name="Главоглаз" faction="MONSTERS" copies="1" kind="UNIT" strength="4" rows="MELEE" ability="MUSTER" muster="arachas"/>
+    <card id="83" name="Главоглаз" faction="MONSTERS" copies="1" kind="UNIT" strength="4" rows="MELEE" ability="MUSTER" muster="arachas"/>
+    <card id="84" name="Главоглаз" faction="MONSTERS" copies="1" kind="UNIT" strength="4" rows="MELEE" ability="MUSTER" muster="arachas"/>
+    <card id="85" name="Вампиры: гаркаин" faction="MONSTERS" copies="1" kind="UNIT" strength="4" rows="MELEE" ability="MUSTER" muster="vampires"/>
+    <card id="86" name="Вампиры: брукса" faction="MONSTERS" copies="1" kind="UNIT" strength="4" rows="MELEE" ability="MUSTER" muster="vampires"/>
+    <card id="87" name="Вампиры: экимма" faction="MONSTERS" copies="1" kind="UNIT" strength="4" rows="MELEE" ability="MUSTER" muster="vampires"/>
+    <card id="88" name="Вампиры: фледер" faction="MONSTERS" copies="1" kind="UNIT" strength="4" rows="MELEE" ability="MUSTER" muster="vampires"/>
+    <card id="89" name="Пугач" faction="MONSTERS" copies="1" kind="UNIT" strength="5" rows="MELEE"/>
+    <card id="90" name="Грифон" faction="MONSTERS" copies="1" kind="UNIT" strength="5" rows="MELEE"/>
+    <card id="91" name="Вилохвост" faction="MONSTERS" copies="1" kind="UNIT" strength="5" rows="MELEE"/>
+    <card id="92" name="Моровая дева" faction="MONSTERS" copies="1" kind="UNIT" strength="5" rows="MELEE"/>
+    <card id="93" name="Волколак" faction="MONSTERS" copies="1" kind="UNIT" strength="5" rows="MELEE"/>
+    <card id="94" name="Вампиры: катакан" faction="MONSTERS" copies="1" kind="UNIT" strength="5" rows="MELEE" ability="MUSTER" muster="vampires"/>
+    <card id="95" name="Кладбищенская баба" faction="MONSTERS" copies="1" kind="UNIT" strength="5" rows="RANGED"/>
+    <card id="96" name="Ледяной великан" faction="MONSTERS" copies="1" kind="UNIT" strength="5" rows="SIEGE"/>
+    <card id="97" name="Бес" faction="MONSTERS" copies="1" kind="UNIT" strength="6" rows="MELEE"/>
+    <card id="98" name="Ведьма: Кухарка" faction="MONSTERS" copies="1" kind="UNIT" strength="6" rows="MELEE" ability="MUSTER" muster="crones"/>
+    <card id="99" name="Ведьма: Пряха" faction="MONSTERS" copies="1" kind="UNIT" strength="6" rows="MELEE" ability="MUSTER" muster="crones"/>
+    <card id="100" name="Ведьма: Шептуха" faction="MONSTERS" copies="1" kind="UNIT" strength="6" rows="MELEE" ability="MUSTER" muster="crones"/>
+    <card id="101" name="Элементаль земли" faction="MONSTERS" copies="1" kind="UNIT" strength="6" rows="SIEGE"/>
+    <card id="102" name="Элементаль огня" faction="MONSTERS" copies="1" kind="UNIT" strength="6" rows="SIEGE"/>
+    <card id="103" name="Огромный главоглаз" faction="MONSTERS" copies="1" kind="UNIT" strength="6" rows="SIEGE" ability="MUSTER" muster="arachas"/>
+    <card id="104" name="Принц-жаба" faction="MONSTERS" copies="1" kind="UNIT" strength="7" rows="RANGED" ability="SCORCH_RANGED"/>
+    <card id="105" name="Кейран" faction="MONSTERS" copies="1" kind="UNIT" strength="8" rows="MELEE,RANGED" hero="true" ability="MORALE"/>
+    <card id="106" name="Драуг" faction="MONSTERS" copies="1" kind="UNIT" strength="10" rows="MELEE" hero="true"/>
+    <card id="107" name="Имлерих" faction="MONSTERS" copies="1" kind="UNIT" strength="10" rows="MELEE" hero="true"/>
+    <card id="108" name="Леший" faction="MONSTERS" copies="1" kind="UNIT" strength="10" rows="RANGED" hero="true"/>
+    <card id="109" name="Осадная поддержка" faction="NILFGAARD" copies="1" kind="UNIT" strength="0" rows="SIEGE" ability="MEDIC"/>
+    <card id="110" name="Лучная поддержка" faction="NILFGAARD" copies="1" kind="UNIT" strength="1" rows="RANGED" ability="MEDIC"/>
+    <card id="111" name="Лучная поддержка" faction="NILFGAARD" copies="1" kind="UNIT" strength="1" rows="RANGED" ability="MEDIC"/>
+    <card id="112" name="Вреемде" faction="NILFGAARD" copies="1" kind="UNIT" strength="2" rows="MELEE"/>
+    <card id="113" name="Кавалерия Наузикаа" faction="NILFGAARD" copies="3" kind="UNIT" strength="2" rows="MELEE" ability="TIGHT_BOND"/>
+    <card id="114" name="Свирс" faction="NILFGAARD" copies="1" kind="UNIT" strength="2" rows="RANGED"/>
+    <card id="115" name="Альбрых" faction="NILFGAARD" copies="1" kind="UNIT" strength="2" rows="RANGED"/>
+    <card id="116" name="Мортейзен" faction="NILFGAARD" copies="1" kind="UNIT" strength="3" rows="MELEE"/>
+    <card id="117" name="Бригада Импера" faction="NILFGAARD" copies="4" kind="UNIT" strength="3" rows="MELEE" ability="TIGHT_BOND"/>
+    <card id="118" name="Путткаммер" faction="NILFGAARD" copies="1" kind="UNIT" strength="3" rows="RANGED"/>
+    <card id="119" name="Сгнившая петрария" faction="NILFGAARD" copies="1" kind="UNIT" strength="3" rows="SIEGE"/>
+    <card id="120" name="Раинфарн" faction="NILFGAARD" copies="1" kind="UNIT" strength="4" rows="MELEE"/>
+    <card id="121" name="Ваттье де Ридо" faction="NILFGAARD" copies="1" kind="UNIT" strength="4" rows="MELEE" ability="SPY" playsOn="OPPONENT"/>
+    <card id="122" name="Вангемар" faction="NILFGAARD" copies="1" kind="UNIT" strength="4" rows="RANGED"/>
+    <card id="123" name="Цинтия" faction="NILFGAARD" copies="1" kind="UNIT" strength="4" rows="RANGED"/>
+    <card id="124" name="Молодой посланник" faction="NILFGAARD" copies="1" kind="UNIT" strength="5" rows="MELEE" ability="TIGHT_BOND"/>
+    <card id="125" name="Молодой посланник" faction="NILFGAARD" copies="1" kind="UNIT" strength="5" rows="MELEE" ability="TIGHT_BOND"/>
+    <card id="126" name="Ренуальд аэп Матсен" faction="NILFGAARD" copies="1" kind="UNIT" strength="5" rows="RANGED"/>
+    <card id="127" name="Огненный скорпион" faction="NILFGAARD" copies="1" kind="UNIT" strength="5" rows="SIEGE"/>
+    <card id="128" name="Кагыр Маур аэп Кеаллах" faction="NILFGAARD" copies="1" kind="UNIT" strength="6" rows="MELEE"/>
+    <card id="129" name="Фрингилья Виго" faction="NILFGAARD" copies="1" kind="UNIT" strength="6" rows="RANGED"/>
+    <card id="130" name="Ассире вар Анагыд" faction="NILFGAARD" copies="1" kind="UNIT" strength="6" rows="RANGED"/>
+    <card id="131" name="Сапер" faction="NILFGAARD" copies="1" kind="UNIT" strength="6" rows="SIEGE"/>
+    <card id="132" name="Шилярд Фиц-Остерлен" faction="NILFGAARD" copies="1" kind="UNIT" strength="7" rows="MELEE" ability="SPY" playsOn="OPPONENT"/>
+    <card id="133" name="Стефан Скеллен" faction="NILFGAARD" copies="1" kind="UNIT" strength="9" rows="MELEE" ability="SPY" playsOn="OPPONENT"/>
+    <card id="134" name="Лучник Бурой Хоругви" faction="NILFGAARD" copies="1" kind="UNIT" strength="10" rows="RANGED"/>
+    <card id="135" name="Лучник Бурой Хоругви" faction="NILFGAARD" copies="1" kind="UNIT" strength="10" rows="RANGED"/>
+    <card id="136" name="Бол. огненный скорпион" faction="NILFGAARD" copies="1" kind="UNIT" strength="10" rows="SIEGE"/>
+    <card id="137" name="Лето из Гулеты" faction="NILFGAARD" copies="1" kind="UNIT" strength="10" rows="MELEE" hero="true"/>
+    <card id="138" name="Менно Коегоорн" faction="NILFGAARD" copies="1" kind="UNIT" strength="10" rows="MELEE" hero="true" ability="MEDIC"/>
+    <card id="139" name="Тибор Эггебрахт" faction="NILFGAARD" copies="1" kind="UNIT" strength="10" rows="RANGED" hero="true"/>
+    <card id="140" name="Морвран Воорхис" faction="NILFGAARD" copies="1" kind="UNIT" strength="10" rows="SIEGE" hero="true"/>
+    <card id="141" name="Лютик" faction="NEUTRAL" copies="1" kind="UNIT" strength="2" rows="MELEE" ability="HORN"/>
+    <card id="142" name="Лютик" faction="NEUTRAL" copies="0" kind="UNIT" strength="2" rows="MELEE" ability="HORN"/>
+    <card id="143" name="Золтан Хивай" faction="NEUTRAL" copies="1" kind="UNIT" strength="5" rows="MELEE"/>
+    <card id="144" name="Золтан Хивай" faction="NEUTRAL" copies="0" kind="UNIT" strength="5" rows="MELEE"/>
+    <card id="145" name="Эмиель Регис" faction="NEUTRAL" copies="1" kind="UNIT" strength="5" rows="MELEE"/>
+    <card id="146" name="Эмиель Регис" faction="NEUTRAL" copies="0" kind="UNIT" strength="5" rows="MELEE"/>
+    <card id="147" name="Весемир" faction="NEUTRAL" copies="1" kind="UNIT" strength="6" rows="MELEE"/>
+    <card id="148" name="Весемир" faction="NEUTRAL" copies="0" kind="UNIT" strength="6" rows="MELEE"/>
+    <card id="149" name="Виллентретенмерт" faction="NEUTRAL" copies="1" kind="UNIT" strength="7" rows="MELEE" ability="SCORCH_MELEE"/>
+    <card id="150" name="Виллентретенмерт" faction="NEUTRAL" copies="0" kind="UNIT" strength="7" rows="MELEE" ability="SCORCH_MELEE"/>
+    <card id="151" name="Гюнтер о'Дим" faction="NEUTRAL" copies="1" kind="UNIT" strength="2" rows="SIEGE" ability="MUSTER" muster="gaunter"/>
+    <card id="152" name="Гюнтер о'Дим: Тьма" faction="NEUTRAL" copies="2" kind="UNIT" strength="4" rows="RANGED" ability="MUSTER" muster="gaunter"/>
+    <card id="153" name="Ольгерд фон Эверек" faction="NEUTRAL" copies="1" kind="UNIT" strength="6" rows="MELEE,RANGED" ability="MORALE"/>
+    <card id="154" name="Корова" faction="NEUTRAL" copies="1" kind="UNIT" strength="0" rows="RANGED" ability="SUMMON_AVENGER"/>
+    <card id="155" name="Скотские Вооруженные Силы" faction="NEUTRAL" copies="0" kind="UNIT" strength="8" rows="MELEE"/>
+    <card id="156" name="Таинственный эльф" faction="NEUTRAL" copies="1" kind="UNIT" strength="0" rows="MELEE" hero="true" ability="SPY" playsOn="OPPONENT" spyDraw="1"/>
+    <card id="157" name="Таинственный эльф" faction="NEUTRAL" copies="0" kind="UNIT" strength="0" rows="MELEE" hero="true" ability="SPY" playsOn="OPPONENT" spyDraw="1"/>
+    <card id="158" name="Трисс Меригольд" faction="NEUTRAL" copies="1" kind="UNIT" strength="7" rows="MELEE" hero="true"/>
+    <card id="159" name="Трисс Меригольд" faction="NEUTRAL" copies="0" kind="UNIT" strength="7" rows="MELEE" hero="true"/>
+    <card id="160" name="Йеннифэр из Венгерберга" faction="NEUTRAL" copies="1" kind="UNIT" strength="7" rows="RANGED" hero="true" ability="MEDIC"/>
+    <card id="161" name="Йеннифэр из Венгерберга" faction="NEUTRAL" copies="0" kind="UNIT" strength="7" rows="RANGED" hero="true" ability="MEDIC"/>
+    <card id="162" name="Цирилла" faction="NEUTRAL" copies="1" kind="UNIT" strength="15" rows="MELEE" hero="true"/>
+    <card id="163" name="Цирилла" faction="NEUTRAL" copies="0" kind="UNIT" strength="15" rows="MELEE" hero="true"/>
+    <card id="164" name="Геральт из Ривии" faction="NEUTRAL" copies="1" kind="UNIT" strength="15" rows="MELEE" hero="true"/>
+    <card id="165" name="Геральт из Ривии" faction="NEUTRAL" copies="0" kind="UNIT" strength="15" rows="MELEE" hero="true"/>
+    <card id="166" name="Чучело" faction="NEUTRAL" copies="3" kind="DECOY"/>
+    <card id="167" name="Командирский рог" faction="NEUTRAL" copies="3" kind="HORN"/>
+    <card id="168" name="Казнь" faction="NEUTRAL" copies="3" kind="SCORCH"/>
+    <card id="169" name="Мороз" faction="NEUTRAL" copies="3" kind="WEATHER" affects="MELEE"/>
+    <card id="170" name="Мгла" faction="NEUTRAL" copies="3" kind="WEATHER" affects="RANGED"/>
+    <card id="171" name="Ливень" faction="NEUTRAL" copies="3" kind="WEATHER" affects="SIEGE"/>
+    <card id="172" name="Ясное небо" faction="NEUTRAL" copies="3" kind="CLEAR_WEATHER"/>
+    <card id="201" name="Фольтест: Король Темерии" faction="NORTHERN_REALMS" kind="LEADER" leader="PLAY_FOG" copies="1" text="Возьмите из колоды Мглу и сразу сыграйте её."/>
+    <card id="202" name="Фольтест: Предводитель Севера" faction="NORTHERN_REALMS" kind="LEADER" leader="CLEAR_WEATHER" copies="1" text="Снимает мороз, мглу и ливень."/>
+    <card id="203" name="Фольтест: Завоеватель" faction="NORTHERN_REALMS" kind="LEADER" leader="HORN_SIEGE" copies="1" text="Удваивает ваши осадные отряды, если в ряду нет рога."/>
+    <card id="204" name="Фольтест: Железный Владыка" faction="NORTHERN_REALMS" kind="LEADER" leader="SCORCH_SIEGE" copies="1" text="Уничтожает сильнейшие осадные отряды врага, если их сила не меньше 10."/>
+    <card id="205" name="Фольтест: Сын Меделла" faction="NORTHERN_REALMS" kind="LEADER" leader="SCORCH_RANGED" copies="1" text="Уничтожает сильнейшие дальнобойные отряды врага, если их сила не меньше 10."/>
+    <card id="206" name="Эмгыр: Йож из Эрленвальда" faction="NILFGAARD" kind="LEADER" leader="PLAY_RAIN" copies="1" text="Возьмите из колоды Ливень и сразу сыграйте его."/>
+    <card id="207" name="Эмгыр: Император Нильфгаарда" faction="NILFGAARD" kind="LEADER" leader="LOOK_AT_HAND" copies="1" text="Посмотрите три случайные карты из руки противника."/>
+    <card id="208" name="Эмгыр: Властелин Юга" faction="NILFGAARD" kind="LEADER" leader="DRAW_OPPONENT_DISCARD" copies="1" text="Возьмите карту из отбоя противника."/>
+    <card id="209" name="Эмгыр: Белое Пламя" faction="NILFGAARD" kind="LEADER" leader="CANCEL_OPPONENT_LEADER" copies="1" text="Отменяет умение вражеского лидера."/>
+    <card id="210" name="Эмгыр: Завоеватель Севера" faction="NILFGAARD" kind="LEADER" leader="MEDIC_BECOMES_RANDOM" copies="1" text="Воскрешение возвращает случайный отряд. Действует на обоих."/>
+    <card id="211" name="Францеска: Истинная эльфийка" faction="SCOIATAEL" kind="LEADER" leader="PLAY_FROST" copies="1" text="Возьмите из колоды Мороз и сразу сыграйте его."/>
+    <card id="212" name="Францеска: Маргаритка из Долин" faction="SCOIATAEL" kind="LEADER" leader="DRAW_AT_START" copies="1" text="Возьмите дополнительную карту в начале боя."/>
+    <card id="213" name="Францеска: Прекраснейшая" faction="SCOIATAEL" kind="LEADER" leader="HORN_RANGED" copies="1" text="Удваивает ваши дальнобойные отряды, если в ряду нет рога."/>
+    <card id="214" name="Францеска: Королева Дол Блатанны" faction="SCOIATAEL" kind="LEADER" leader="SCORCH_MELEE" copies="1" text="Уничтожает сильнейшие рукопашные отряды врага, если их сила не меньше 10."/>
+    <card id="215" name="Францеска: Надежда Aen Seidhe" faction="SCOIATAEL" kind="LEADER" leader="MOVE_AGILE" copies="1" text="Переставляет проворные отряды в ряд, где их сила больше."/>
+    <card id="216" name="Эредин: Командир Дикой Охоты" faction="MONSTERS" kind="LEADER" leader="PLAY_ANY_WEATHER" copies="1" text="Возьмите из колоды любую погоду и сразу сыграйте её."/>
+    <card id="217" name="Эредин: Король Aen Elle" faction="MONSTERS" kind="LEADER" leader="HORN_MELEE" copies="1" text="Удваивает ваши рукопашные отряды, если в ряду нет рога."/>
+    <card id="218" name="Эредин: Владыка Тир на Лиа" faction="MONSTERS" kind="LEADER" leader="RETURN_FROM_DISCARD" copies="1" text="Верните карту из отбоя в руку."/>
+    <card id="219" name="Эредин: Убийца Оберона" faction="MONSTERS" kind="LEADER" leader="DISCARD_TWO_DRAW_ONE" copies="1" text="Сбросьте две карты и возьмите одну из колоды."/>
+    <card id="220" name="Эредин: Вероломный" faction="MONSTERS" kind="LEADER" leader="DOUBLE_SPIES" copies="1" text="Удваивает силу шпионов у обоих игроков."/>
+</cards>

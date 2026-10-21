@@ -13,8 +13,8 @@ public record Settings(
         int windowX,
         int windowY
 ) {
-    public static final int MIN_WIDTH = 1024;
-    public static final int MIN_HEIGHT = 640;
+    public static final int MIN_WIDTH = 1280;
+    public static final int MIN_HEIGHT = 720;
 
     public Settings {
         musicVolume = clamp(musicVolume, 0, 100);

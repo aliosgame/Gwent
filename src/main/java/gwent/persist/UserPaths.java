@@ -16,4 +16,8 @@ public final class UserPaths {
     public static Path settingsFile() {
         return root().resolve("settings.json");
     }
+
+    public static Path decksFile() {
+        return root().resolve("decks.json");
+    }
 }

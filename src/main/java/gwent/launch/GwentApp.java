@@ -1,5 +1,6 @@
 package gwent.launch;
 
+import gwent.deck.DeckStore;
 import gwent.persist.Settings;
 import gwent.persist.SettingsStore;
 import gwent.persist.UserPaths;
@@ -57,7 +58,8 @@ public final class GwentApp extends Application {
         stage.setFullScreenExitHint("");
 
         context = new AppContext(stage, store, settings, music);
-        Navigator navigator = new Navigator(screens, context);
+        DeckStore decks = DeckStore.loadOrCreate(UserPaths.decksFile());
+        Navigator navigator = new Navigator(screens, context, decks);
         navigator.showMainMenu();
         hint.install(scene);
 

@@ -149,3 +149,244 @@
 .check-box:selected .mark {
     -fx-background-color: #e6c27a;
 }
+
+.deck-screen {
+    -fx-background-color: #120e0b;
+}
+
+.deck-header {
+    -fx-padding: 16 20 8 20;
+}
+
+.deck-body {
+    -fx-padding: 10 16 16 16;
+}
+
+.deck-perk {
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+.deck-faction, .deck-filter, .deck-action {
+    -fx-background-color: rgba(20, 14, 10, 0.78);
+    -fx-text-fill: #f3e6cf;
+    -fx-border-color: #8c7044;
+    -fx-border-width: 1;
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 15px;
+    -fx-background-radius: 0;
+    -fx-border-radius: 0;
+    -fx-cursor: hand;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.deck-faction {
+    -fx-font-size: 17px;
+}
+
+.deck-faction-selected, .deck-filter-selected {
+    -fx-border-color: #e6c27a;
+    -fx-text-fill: #fff6e4;
+    -fx-background-color: rgba(140, 112, 68, 0.38);
+}
+
+.deck-action {
+    -fx-font-size: 18px;
+    -fx-padding: 8 18 8 18;
+    -fx-max-width: 240;
+}
+
+.deck-action:hover {
+    -fx-border-color: #e6c27a;
+    -fx-text-fill: #fff6e4;
+}
+
+.deck-column-title {
+    -fx-font-family: "Oranienbaum", "Georgia", serif;
+    -fx-font-size: 26px;
+    -fx-text-fill: #e6c27a;
+}
+
+.deck-scroll {
+    -fx-background: #120e0b;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.deck-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.deck-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-pref-width: 12;
+}
+
+.deck-scroll .scroll-bar:vertical .track {
+    -fx-background-color: #241c16;
+    -fx-background-radius: 6;
+    -fx-border-color: transparent;
+}
+
+.deck-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: #8c7044;
+    -fx-background-radius: 6;
+}
+
+.deck-scroll .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #e6c27a;
+}
+
+.deck-scroll .scroll-bar .increment-button,
+.deck-scroll .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-pref-height: 0;
+    -fx-pref-width: 0;
+}
+
+.deck-scroll .scroll-bar .increment-arrow,
+.deck-scroll .scroll-bar .decrement-arrow {
+    -fx-shape: "";
+    -fx-padding: 0;
+}
+
+.strip-description {
+    -fx-background-color: rgba(18, 14, 11, 0.94);
+    -fx-border-color: #8c7044;
+    -fx-padding: 14 22 14 22;
+    -fx-alignment: center;
+}
+
+.deck-perk, .deck-stat-name {
+    -fx-font-family: "Georgia", serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #d7c4a2;
+}
+
+.deck-stat {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 16px;
+    -fx-text-fill: #e6c27a;
+}
+
+.deck-bad {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 16px;
+    -fx-text-fill: #e7b1a0;
+}
+
+.deck-problem {
+    -fx-font-family: "Georgia", serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: #e7b1a0;
+    -fx-wrap-text: true;
+}
+
+.card-tile,
+.card-tile:hover,
+.card-tile:focused,
+.card-tile:armed {
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 2;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-effect: null;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.card-tile:hover .card-art {
+    -fx-effect: dropshadow(gaussian, rgba(230, 194, 122, 0.85), 16, 0.45, 0, 0);
+}
+
+.card-art {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.card-power {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 16px;
+    -fx-text-fill: #2a2118;
+    -fx-font-weight: bold;
+}
+
+.card-name {
+    -fx-font-family: "Georgia", serif;
+    -fx-font-size: 12px;
+    -fx-text-fill: #f0e2c4;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+.card-count {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #5c4632;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-border-color: transparent;
+}
+
+.leader-picker {
+    -fx-background-color: rgba(8, 6, 4, 0.78);
+}
+
+.leader-picker-title {
+    -fx-font-family: "Oranienbaum", "Georgia", serif;
+    -fx-font-size: 32px;
+    -fx-text-fill: #e6c27a;
+}
+
+.leader-choice {
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.leader-frame {
+    -fx-background-color: transparent;
+    -fx-background-radius: 18;
+}
+
+.leader-frame-selected {
+    -fx-background-color: #f6e2a8;
+    -fx-background-radius: 18;
+    -fx-effect: dropshadow(gaussian, rgba(246, 226, 168, 0.95), 26, 0.55, 0, 0);
+}
+
+.leader-ability {
+    -fx-background-color: rgba(18, 14, 11, 0.94);
+    -fx-border-color: #8c7044;
+    -fx-padding: 14 22 14 22;
+    -fx-min-width: 720;
+    -fx-max-width: 720;
+    -fx-alignment: center;
+}
+
+.leader-ability-title {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 16px;
+    -fx-text-fill: #e6c27a;
+    -fx-alignment: center;
+}
+
+.leader-ability-text {
+    -fx-font-family: "Georgia", serif;
+    -fx-font-size: 15px;
+    -fx-text-fill: #f0e2c4;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-min-height: 46px;
+    -fx-pref-height: 46px;
+}
