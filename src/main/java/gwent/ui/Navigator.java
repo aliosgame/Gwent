@@ -1,11 +1,9 @@
 package gwent.ui;
 
-import gwent.catalog.CardCatalog;
-import gwent.catalog.CardDef;
 import gwent.deck.Deck;
-import gwent.deck.DeckCheck;
 import gwent.deck.DeckStore;
 import gwent.ui.deck.DeckScreen;
+import gwent.ui.match.MatchScreen;
 import gwent.ui.menu.InfoView;
 import gwent.ui.menu.MainMenuView;
 import gwent.ui.menu.SettingsView;
@@ -34,16 +32,7 @@ public final class Navigator {
     }
 
     public void showMatchReady(Deck deck) {
-        CardDef leader = CardCatalog.get(deck.leaderId());
-        show(new InfoView(
-                "Колода готова",
-                "Сесть за стол можно будет следующим шагом. Сейчас выбраны "
-                        + CardCatalog.factionName(deck.faction())
-                        + ", лидер «" + leader.name() + "», отрядов "
-                        + DeckCheck.units(deck) + ", особых "
-                        + DeckCheck.specials(deck) + ".",
-                "К колоде",
-                this::showSinglePlayer).create());
+        show(MatchScreen.versusPreset(deck, this::showSinglePlayer).create());
     }
 
     public void showLan() {

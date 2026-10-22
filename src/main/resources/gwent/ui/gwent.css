@@ -150,8 +150,295 @@
     -fx-background-color: #e6c27a;
 }
 
-.deck-screen {
+.deck-screen, .match-screen {
     -fx-background-color: #120e0b;
+}
+
+.match-screen {
+    -fx-background-color: #52341e;
+    -fx-background-image: url("board/table-wood.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+    -fx-background-size: auto auto;
+}
+
+.match-row {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.match-row-plate {
+    -fx-background-image: url("board/field.png"), url("board/border.png"), url("board/border.png");
+    -fx-background-repeat: repeat, repeat-y, repeat-y;
+    -fx-background-position: center, left center, right center;
+    -fx-background-size: auto 100%, 7 100%, 7 100%;
+    -fx-background-color: #2a1c12;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.match-row-ready {
+    -fx-cursor: hand;
+}
+
+.match-row-ready .match-row-plate {
+    -fx-border-color: #e6c27a;
+    -fx-border-width: 2;
+}
+
+.match-banner {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 20px;
+    -fx-text-fill: #f3e6cf;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+    -fx-padding: 2 12 6 12;
+}
+
+.match-banner-bad {
+    -fx-text-fill: #e7b1a0;
+}
+
+.match-turn {
+    -fx-font-family: "Oranienbaum", "Georgia", serif;
+    -fx-font-size: 22px;
+    -fx-text-fill: #e6c27a;
+}
+
+.match-round {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #f3e6cf;
+    -fx-padding: 0 18 0 18;
+}
+
+.match-side-name {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 18px;
+    -fx-text-fill: #f3e6cf;
+}
+
+.match-total-player {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 32px;
+    -fx-text-fill: #f0d48a;
+}
+
+.match-total-opponent {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 32px;
+    -fx-text-fill: #d7e4ef;
+}
+
+.match-rail-name {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 15px;
+    -fx-text-fill: #e6c27a;
+}
+
+.match-passed {
+    -fx-font-family: "Oranienbaum", "Georgia", serif;
+    -fx-font-size: 20px;
+    -fx-text-fill: #e7b1a0;
+}
+
+.match-pile {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: #f3e6cf;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.9), 4, 0.6, 0, 1);
+}
+
+.match-weather {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 14px;
+    -fx-text-fill: #e7f2fb;
+    -fx-padding: 2 6 2 6;
+}
+
+.board-card {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.55), 8, 0.25, 0, 2);
+}
+
+.board-power {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-text-fill: #2a2118;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+.board-row-total {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-text-fill: #1c140c;
+    -fx-alignment: center;
+}
+
+.board-hand-selected {
+    -fx-effect: dropshadow(gaussian, rgba(230, 194, 122, 0.95), 18, 0.45, 0, 0);
+}
+
+.board-hand:hover {
+    -fx-effect: dropshadow(gaussian, rgba(230, 194, 122, 0.95), 18, 0.5, 0, 0);
+}
+
+.match-stats {
+    -fx-background-image: url("board/bg_user.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+    -fx-background-size: 100% 100%;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0 8 0 6;
+}
+
+.match-stats-active {
+    -fx-border-color: #e6c27a;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(230, 194, 122, 0.9), 16, 0.45, 0, 0);
+}
+
+.match-faction {
+    -fx-font-family: "Georgia", serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: #d7c4a2;
+}
+
+.match-hand-count {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 18px;
+    -fx-text-fill: #f3e6cf;
+}
+
+.match-leader {
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 0;
+}
+
+.match-weather-slot {
+    -fx-background-image: url("board/weather-box.png");
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-padding: 12 16 12 16;
+}
+
+.match-horn-slot {
+    -fx-background-image: url("board/field.png");
+    -fx-background-repeat: repeat;
+    -fx-background-size: auto 100%;
+    -fx-background-position: center center;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.match-horn-on {
+    -fx-border-color: #e6c27a;
+}
+
+.match-target {
+    -fx-border-color: #e6c27a;
+    -fx-border-width: 2;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(230, 194, 122, 0.75), 12, 0.35, 0, 0);
+}
+
+.match-grave {
+    -fx-background-image: url("board/retreat.png");
+    -fx-background-size: contain;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center center;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+}
+
+.match-rail {
+    -fx-background-image: url("board/bg_left.png");
+    -fx-background-repeat: repeat-y;
+    -fx-background-position: right top;
+    -fx-background-size: auto auto;
+}
+
+.match-column {
+    -fx-background-image: url("board/column.png");
+    -fx-background-repeat: repeat-y;
+    -fx-background-position: center top;
+    -fx-background-size: 100% auto;
+}
+
+.match-rail-right {
+    -fx-background-image: url("board/bg_right.png");
+    -fx-background-repeat: repeat-y;
+    -fx-background-position: left center;
+    -fx-background-size: auto auto;
+}
+
+.match-rows {
+    -fx-background-color: transparent;
+}
+
+.match-hand-wood {
+    -fx-background-image: url("board/field.png"), url("board/border.png");
+    -fx-background-repeat: repeat, repeat-y;
+    -fx-background-position: center, right center;
+    -fx-background-size: auto 100%, 7 100%;
+    -fx-background-color: #2a1c12;
+}
+
+.match-deck-count {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 20px;
+    -fx-text-fill: #f6edd8;
+    -fx-background-color: rgba(12, 8, 6, 0.78);
+    -fx-padding: 0 8 0 8;
+    -fx-background-radius: 2;
+}
+
+.match-pile-count {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 16px;
+    -fx-text-fill: #f6edd8;
+    -fx-background-color: rgba(12, 8, 6, 0.82);
+    -fx-padding: 0 6 0 6;
+}
+
+.match-note {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 16px;
+    -fx-text-fill: #f3e6cf;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+.match-skill {
+    -fx-background-color: rgba(6, 6, 6, 0.94);
+    -fx-border-color: rgba(70, 60, 40, 0.8);
+    -fx-border-width: 1;
+    -fx-padding: 8 12 10 12;
+}
+
+.match-skill-title {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 16px;
+    -fx-text-fill: #f4efe4;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
+}
+
+.match-skill-body {
+    -fx-font-family: "Georgia", serif;
+    -fx-font-size: 13px;
+    -fx-text-fill: #e6d7bc;
+    -fx-alignment: center;
+    -fx-text-alignment: center;
 }
 
 .deck-header {

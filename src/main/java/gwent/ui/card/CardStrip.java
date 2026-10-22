@@ -125,7 +125,10 @@ public final class CardStrip extends VBox {
     }
 
     private void choose(int index) {
+        // Повторный клик по уже выбранной карте тоже считается выбором:
+        // в отбое одна карта, и её всё равно нужно нажать.
         if (index == selected) {
+            onSelect.accept(index);
             return;
         }
         selected = index;

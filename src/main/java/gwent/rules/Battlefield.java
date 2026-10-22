@@ -78,6 +78,22 @@ public final class Battlefield {
         return weather.get(row);
     }
 
+    public boolean horn(Side side, Row row) {
+        return line(side, row).horn;
+    }
+
+    /** Снимает отряды и рога. Погода остаётся до ясного неба, как в «Ведьмаке». */
+    public void clearUnits() {
+        for (Side side : Side.values()) {
+            for (Row row : Row.values()) {
+                Line line = line(side, row);
+                line.units.clear();
+                line.horn = false;
+                line.hornSource = -1;
+            }
+        }
+    }
+
     public void remove(PlacedCard placed) {
         for (Side side : Side.values()) {
             for (Row row : Row.values()) {
