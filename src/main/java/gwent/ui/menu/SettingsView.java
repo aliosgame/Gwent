@@ -6,6 +6,7 @@ import gwent.ui.AppContext;
 import gwent.ui.Navigator;
 import gwent.ui.SceneShell;
 import gwent.ui.WindowPlacement;
+import javafx.beans.value.ChangeListener;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
@@ -40,8 +41,10 @@ public final class SettingsView {
         Label effectsValue = valueLabel(effects);
 
         CheckBox fullscreen = new CheckBox("Полный экран");
-        fullscreen.setSelected(current.fullscreen());
+        fullscreen.setSelected(context.stage().isFullScreen());
         fullscreen.getStyleClass().add("option");
+        ChangeListener<Boolean> followStage = (obs, was, now) -> fullscreen.setSelected(now);
+        context.stage().fullScreenProperty().addListener(followStage);
 
         Label pathCaption = new Label("Файл настроек");
         pathCaption.getStyleClass().add("hint");
@@ -85,7 +88,13 @@ public final class SettingsView {
                 back);
         column.setAlignment(Pos.CENTER_LEFT);
         column.setPrefWidth(840);
-        return SceneShell.wrap(column);
+        Parent view = SceneShell.wrap(column);
+        view.sceneProperty().addListener((obs, was, scene) -> {
+            if (scene == null) {
+                context.stage().fullScreenProperty().removeListener(followStage);
+            }
+        });
+        return view;
     }
 
     private void save(Settings current, Slider music, Slider effects, CheckBox fullscreen, Label error) {

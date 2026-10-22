@@ -112,21 +112,6 @@
     -fx-border-color: #e6c27a;
 }
 
-.fullscreen-hint {
-    -fx-background-color: rgba(18, 14, 11, 0.92);
-    -fx-border-color: #e6c27a;
-    -fx-border-width: 1;
-    -fx-padding: 14 22 14 22;
-    -fx-background-radius: 0;
-    -fx-border-radius: 0;
-}
-
-.fullscreen-hint-text {
-    -fx-font-family: "Philosopher", "Georgia", serif;
-    -fx-font-size: 18px;
-    -fx-text-fill: #f3e6cf;
-}
-
 .slider .track {
     -fx-background-color: #3a2e22;
     -fx-pref-height: 4;

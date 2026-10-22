@@ -6,7 +6,6 @@ import gwent.persist.SettingsStore;
 import gwent.persist.UserPaths;
 import gwent.ui.AppContext;
 import gwent.ui.Fonts;
-import gwent.ui.FullscreenHint;
 import gwent.ui.MenuMusic;
 import gwent.ui.Navigator;
 import gwent.ui.WindowPlacement;
@@ -14,6 +13,9 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -45,25 +47,25 @@ public final class GwentApp extends Application {
         music.play(settings.musicLevel());
 
         StackPane screens = new StackPane();
-        FullscreenHint hint = new FullscreenHint();
-        StackPane root = new StackPane(screens, hint.node());
-        root.getStylesheets().add(stylesheet());
-        Scene scene = new Scene(root);
+        screens.getStylesheets().add(stylesheet());
+        Scene scene = new Scene(screens);
         scene.setFill(Color.web("#120e0b"));
 
         stage.setTitle("Гвинт");
         stage.setScene(scene);
         stage.setMinWidth(Settings.MIN_WIDTH);
         stage.setMinHeight(Settings.MIN_HEIGHT);
+        // Штатный выход JavaFX — Esc и табличка «нажмите Esc». Сочетание перехватываем сами.
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
         stage.setFullScreenExitHint("");
 
         context = new AppContext(stage, store, settings, music);
         DeckStore decks = DeckStore.loadOrCreate(UserPaths.decksFile());
         Navigator navigator = new Navigator(screens, context, decks);
         navigator.showMainMenu();
-        hint.install(scene);
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, this::toggleFullscreen);
 
-        stage.fullScreenProperty().addListener((obs, was, now) -> onFullscreenChanged(now, hint));
+        stage.fullScreenProperty().addListener((obs, was, now) -> onFullscreenChanged(now));
         stage.setOnCloseRequest(event -> beginClose());
         stage.setOnHiding(event -> closing = true);
 
@@ -79,12 +81,17 @@ public final class GwentApp extends Application {
         }
     }
 
-    private void onFullscreenChanged(boolean fullscreen, FullscreenHint hint) {
-        if (fullscreen) {
-            hint.show();
-        } else {
-            hint.hideNow();
+    private void toggleFullscreen(KeyEvent event) {
+        if (event.getCode() != KeyCode.ENTER || !event.isAltDown()
+                || event.isControlDown() || event.isShiftDown() || event.isMetaDown()) {
+            return;
         }
+        Stage stage = context.stage();
+        stage.setFullScreen(!stage.isFullScreen());
+        event.consume();
+    }
+
+    private void onFullscreenChanged(boolean fullscreen) {
         if (closing) {
             return;
         }
@@ -92,9 +99,8 @@ public final class GwentApp extends Application {
             rememberFullscreen(true);
             return;
         }
-        // Выключение приходит и от Esc, и от закрытия окна: JavaFX сначала снимает
-        // полный экран, и только потом шлёт запрос закрытия. Запись false откладываем
-        // на следующий пульс — если это был выход из игры, флаг closing уже стоит.
+        // При закрытии JavaFX сначала снимает полный экран и только потом шлёт запрос.
+        // Запись false откладываем на следующий пульс: если это выход, флаг closing уже стоит.
         Platform.runLater(() -> {
             if (!closing) {
                 rememberFullscreen(false);
