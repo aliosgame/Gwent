@@ -20,7 +20,6 @@ public record CardDef(
         Ability ability,
         String musterGroup,
         PlaysOn playsOn,
-        int spyDraw,
         LeaderAbility leaderAbility,
         int copies,
         String text
@@ -29,7 +28,7 @@ public record CardDef(
         if (name == null || name.isBlank()) {
             throw new IllegalArgumentException("У карты " + id + " нет имени");
         }
-        if (strength < 0 || copies < 0 || spyDraw < 0) {
+        if (strength < 0 || copies < 0) {
             throw new IllegalArgumentException("Плохие числа у карты " + id);
         }
         if (kind == CardKind.UNIT && (rows == null || rows.isEmpty())) {
@@ -66,6 +65,10 @@ public record CardDef(
 
     public boolean special() {
         return kind != CardKind.UNIT && kind != CardKind.LEADER;
+    }
+
+    public boolean spy() {
+        return ability == Ability.SPY;
     }
 
     /** Карта, которую можно добавить в колоду. Лидеры выбираются отдельно. */

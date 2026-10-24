@@ -1265,7 +1265,7 @@ public final class MatchScreen {
             waitingReviveRow = false;
         }
         int drawn = 0;
-        if (side == Side.PLAYER && played != null && played.spyDraw() > 0 && handIndex(move) >= 0) {
+        if (side == Side.PLAYER && played != null && played.spy() && handIndex(move) >= 0) {
             drawn = Math.max(0, match.hand(side).size() - (handBefore - 1));
         }
         boolean ended = match.round() != roundBefore || match.phase() == Match.Phase.FINISHED;

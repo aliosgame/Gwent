@@ -43,8 +43,7 @@ class CardCatalogTest {
         assertEquals("vampires", CardCatalog.get(86).musterGroup());
         assertEquals("arachas", CardCatalog.get(103).musterGroup());
         assertEquals(PlaysOn.OPPONENT, CardCatalog.get(11).playsOn());
-        assertEquals(2, CardCatalog.get(11).spyDraw());
-        assertEquals(1, CardCatalog.get(156).spyDraw());
+        assertTrue(CardCatalog.get(11).spy());
         assertTrue(CardCatalog.get(105).agile());
         assertTrue(CardCatalog.get(105).hero());
         assertEquals(Ability.MORALE, CardCatalog.get(105).ability());

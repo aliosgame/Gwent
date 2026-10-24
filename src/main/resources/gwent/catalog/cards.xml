@@ -155,8 +155,8 @@
     <card id="153" name="Ольгерд фон Эверек" faction="NEUTRAL" copies="1" kind="UNIT" strength="6" rows="MELEE,RANGED" ability="MORALE"/>
     <card id="154" name="Корова" faction="NEUTRAL" copies="1" kind="UNIT" strength="0" rows="RANGED" ability="SUMMON_AVENGER"/>
     <card id="155" name="Скотские Вооруженные Силы" faction="NEUTRAL" copies="0" kind="UNIT" strength="8" rows="MELEE"/>
-    <card id="156" name="Таинственный эльф" faction="NEUTRAL" copies="1" kind="UNIT" strength="0" rows="MELEE" hero="true" ability="SPY" playsOn="OPPONENT" spyDraw="1"/>
-    <card id="157" name="Таинственный эльф" faction="NEUTRAL" copies="0" kind="UNIT" strength="0" rows="MELEE" hero="true" ability="SPY" playsOn="OPPONENT" spyDraw="1"/>
+    <card id="156" name="Таинственный эльф" faction="NEUTRAL" copies="1" kind="UNIT" strength="0" rows="MELEE" hero="true" ability="SPY" playsOn="OPPONENT"/>
+    <card id="157" name="Таинственный эльф" faction="NEUTRAL" copies="0" kind="UNIT" strength="0" rows="MELEE" hero="true" ability="SPY" playsOn="OPPONENT"/>
     <card id="158" name="Трисс Меригольд" faction="NEUTRAL" copies="1" kind="UNIT" strength="7" rows="MELEE" hero="true"/>
     <card id="159" name="Трисс Меригольд" faction="NEUTRAL" copies="0" kind="UNIT" strength="7" rows="MELEE" hero="true"/>
     <card id="160" name="Йеннифэр из Венгерберга" faction="NEUTRAL" copies="1" kind="UNIT" strength="7" rows="RANGED" hero="true" ability="MEDIC"/>

@@ -22,7 +22,7 @@ import java.util.Random;
  * <p>
  * Ничья в раунде достаётся Нильфгаарду, если он один такой за столом.
  * Север после выигранного раунда берёт карту из колоды.
- * Погода не снимается в конце раунда. Кто выиграл раунд, ходит первым в следующем;
+ * Погода сбрасывается в конце раунда. Кто выиграл раунд, ходит первым в следующем;
  * при чистой ничьей первым ходит тот, кто спасовал раньше.
  */
 public final class Match {
@@ -30,6 +30,7 @@ public final class Match {
     public static final int MULLIGAN = 2;
     public static final int ROUND_WINS = 2;
     public static final int ROUNDS = 3;
+    public static final int SPY_DRAW = 2;
     private static final int ROW_SCORCH_AT = 10;
 
     public enum Phase {
@@ -42,10 +43,15 @@ public final class Match {
     public record Token(int id, CardDef card, Side owner, Side side, Row row) {
     }
 
+    /** Погодная карта, активная на столе в текущем раунде. */
+    public record ActiveWeather(CardDef card, Side owner) {
+    }
+
     private final Random random;
     private final EnumMap<Side, Seat> seats = new EnumMap<>(Side.class);
     private final Battlefield field = new Battlefield();
     private final List<Token> tokens = new ArrayList<>();
+    private final List<ActiveWeather> activeWeather = new ArrayList<>();
     private final java.util.Map<Integer, Side> owners = new java.util.HashMap<>();
 
     private Phase phase = Phase.MULLIGAN;
@@ -145,6 +151,10 @@ public final class Match {
 
     public List<Token> tokens() {
         return List.copyOf(tokens);
+    }
+
+    public List<ActiveWeather> activeWeather() {
+        return List.copyOf(activeWeather);
     }
 
     public void mulligan(Side side, List<Integer> handIndexes) {
@@ -350,7 +360,7 @@ public final class Match {
         CardDef card = requireKind(peek(side, handIndex), CardKind.WEATHER);
         take(side, handIndex);
         field.setWeather(card.affects());
-        seats.get(side).discard.add(card);
+        activeWeather.add(new ActiveWeather(card, side));
         finish(side);
     }
 
@@ -358,6 +368,10 @@ public final class Match {
         CardDef card = requireKind(peek(side, handIndex), CardKind.CLEAR_WEATHER);
         take(side, handIndex);
         field.clearWeather();
+        for (ActiveWeather w : activeWeather) {
+            seats.get(w.owner()).discard.add(w.card());
+        }
+        activeWeather.clear();
         seats.get(side).discard.add(card);
         finish(side);
     }
@@ -421,7 +435,7 @@ public final class Match {
         PlacedCard placed = field.place(board, row, card);
         owners.put(placed.placementId(), owner);
         if (card.ability() == Ability.SPY || card.playsOn() == PlaysOn.OPPONENT) {
-            draw(owner, card.spyDraw());
+            draw(owner, SPY_DRAW);
         }
         Row scorched = scorchRow(card.ability());
         if (scorched != null) {
@@ -478,6 +492,11 @@ public final class Match {
         tokens.clear();
         owners.clear();
         field.clearUnits();
+        field.clearWeather();
+        for (ActiveWeather w : activeWeather) {
+            seats.get(w.owner()).discard.add(w.card());
+        }
+        activeWeather.clear();
         for (Seat seat : seats.values()) {
             seat.passed = false;
         }

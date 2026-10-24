@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -56,13 +57,6 @@ class MatchTest {
         assertEquals(0, match.field().units(Side.PLAYER, Row.MELEE).size());
         assertEquals(hand - 1 + 2, match.hand(Side.PLAYER).size());
         assertEquals(4, match.field().total(Side.OPPONENT));
-    }
-
-    @Test
-    void mysteriousElfDrawsOne() {
-        Match match = prepared(List.of(elf), List.of(), List.of(infantry), List.of());
-        match.play(Side.PLAYER, new Move.Unit(0, Row.MELEE));
-        assertEquals(1, match.hand(Side.PLAYER).size());
     }
 
     @Test
@@ -174,16 +168,19 @@ class MatchTest {
     }
 
     @Test
-    void weatherStaysAndTwoWinsEndTheMatch() {
-        Match weather = prepared(List.of(frost), List.of(redanian), List.of(), List.of());
+    void weatherClearsAndCardsDiscardedAtRoundEnd() {
+        Match weather = prepared(List.of(frost), List.of(ves), List.of(), List.of());
         weather.play(Side.PLAYER, new Move.Weather(0));
         weather.play(Side.OPPONENT, new Move.Pass());
         weather.play(Side.PLAYER, new Move.Pass());
         assertEquals(2, weather.round());
-        assertTrue(weather.field().weather(Row.MELEE));
+        // В конце раунда любая активная погода сбрасывается, а карты погоды уходят в отбой
+        assertFalse(weather.field().weather(Row.MELEE));
+        assertTrue(weather.discard(Side.PLAYER).contains(frost));
         assertEquals(Side.OPPONENT, weather.active());
         weather.play(Side.OPPONENT, new Move.Unit(0, Row.MELEE));
-        assertEquals(1, weather.field().total(Side.OPPONENT));
+        // Сила Вес (5) не режется морозом во втором раунде
+        assertEquals(5, weather.field().total(Side.OPPONENT));
 
         Match match = prepared(List.of(ves, siegfried), List.of(redanian, CardCatalog.get(3)), List.of(), List.of());
         match.play(Side.PLAYER, new Move.Unit(0, Row.MELEE));

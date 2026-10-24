@@ -40,9 +40,6 @@ public final class CardXml {
         if (ability == Ability.MUSTER && muster.isBlank()) {
             muster = attr(element, "name", true);
         }
-        int spyDraw = element.hasAttribute("spyDraw")
-                ? integer(element, "spyDraw")
-                : ability == Ability.SPY ? 2 : 0;
         return new CardDef(
                 id,
                 attr(element, "name", true),
@@ -57,7 +54,6 @@ public final class CardXml {
                 element.hasAttribute("playsOn")
                         ? enumValue(PlaysOn.class, element.getAttribute("playsOn"), id)
                         : PlaysOn.OWN,
-                spyDraw,
                 element.hasAttribute("leader") ? enumValue(LeaderAbility.class, element.getAttribute("leader"), id) : null,
                 integer(element, "copies"),
                 element.getAttribute("text"));

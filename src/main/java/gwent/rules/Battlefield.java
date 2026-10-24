@@ -14,7 +14,7 @@ import java.util.List;
  * <p>
  * Порядок как в мини-игре «Ведьмака 3»:
  * погода ставит не-герою 1, прочная связь умножает это число,
- * рог удваивает, прилив сил добавляет +1 уже после рога.
+ * прилив сил добавляет +1, а командирский рог удваивает итоговую силу ряда: (база + мораль) * 2.
  * Герой не меняется, но его прилив сил действует на остальных.
  */
 public final class Battlefield {
@@ -82,7 +82,7 @@ public final class Battlefield {
         return line(side, row).horn;
     }
 
-    /** Снимает отряды и рога. Погода остаётся до ясного неба, как в «Ведьмаке». */
+    /** Снимает отряды и рога. Погода очищается отдельно через clearWeather. */
     public void clearUnits() {
         for (Side side : Side.values()) {
             for (Row row : Row.values()) {
@@ -204,11 +204,11 @@ public final class Battlefield {
         if (!card.hero() && card.ability() == Ability.TIGHT_BOND) {
             power *= bondCount(line, card);
         }
-        if (!card.hero() && line.horn && line.hornSource != placed.placementId()) {
-            power *= 2;
-        }
         if (!card.hero()) {
             power += moraleFromOthers(line, placed);
+        }
+        if (!card.hero() && line.horn && line.hornSource != placed.placementId()) {
+            power *= 2;
         }
         return power;
     }

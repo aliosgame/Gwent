@@ -72,14 +72,16 @@ class RowStrengthTest {
     }
 
     @Test
-    void moraleIsAddedAfterHornSoThePointIsNotDoubled() {
+    void hornDoublesAfterMoraleIsAdded() {
         Battlefield field = new Battlefield();
         PlacedCard siege = field.place(Side.PLAYER, Row.SIEGE, ballista);
         field.place(Side.PLAYER, Row.SIEGE, expert);
         field.setHorn(Side.PLAYER, Row.SIEGE);
 
-        assertEquals(13, field.strength(Side.PLAYER, Row.SIEGE, siege));
+        // В оригинале рог удваивает ряд после морали: (6 + 1) * 2 = 14
+        assertEquals(14, field.strength(Side.PLAYER, Row.SIEGE, siege));
         assertEquals(2, strengthOf(field, Side.PLAYER, Row.SIEGE, expert));
+        assertEquals(16, field.rowTotal(Side.PLAYER, Row.SIEGE));
     }
 
     @Test
