@@ -22,6 +22,9 @@ application {
     mainModule = 'gwent'
     mainClass = 'gwent.launch.GwentApp'
     applicationDefaultJvmArgs = [
+            '-Dfile.encoding=UTF-8',
+            '-Dsun.stdout.encoding=UTF-8',
+            '-Dsun.stderr.encoding=UTF-8',
             '--enable-native-access=javafx.graphics,javafx.media'
     ]
 }
@@ -46,8 +49,13 @@ tasks.withType(JavaCompile).configureEach {
     options.release = 25
 }
 
+tasks.withType(JavaExec).configureEach {
+    jvmArgs '-Dfile.encoding=UTF-8', '-Dsun.stdout.encoding=UTF-8', '-Dsun.stderr.encoding=UTF-8'
+}
+
 tasks.named('test', Test) {
     useJUnitPlatform()
+    jvmArgs '-Dfile.encoding=UTF-8', '-Dsun.stdout.encoding=UTF-8', '-Dsun.stderr.encoding=UTF-8'
 }
 
 // Будущие таски: packageWindows, packageLinux, packageMac.
