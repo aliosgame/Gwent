@@ -58,22 +58,31 @@ tasks.named('test', Test) {
     jvmArgs '-Dfile.encoding=UTF-8', '-Dsun.stdout.encoding=UTF-8', '-Dsun.stderr.encoding=UTF-8'
 }
 
-// Будущие таски: packageWindows, packageLinux, packageMac.
-// Каждый запускается на своей ОС. jpackage не кросс-компилирует:
-// exe собирается на Windows, образ приложения на Linux, dmg на macOS.
-// Друзьям без установленной Java отдаётся именно этот образ, а не jar.
-//
-// Общие входы уже зафиксированы здесь, отдельные таски их только читают:
-//   модуль      application.mainModule   (gwent)
-//   класс       application.mainClass    (gwent.launch.GwentApp)
-//   JavaFX      javafx.modules           (controls, media)
-//   вывод       build/dist/windows | linux | mac
-//
-// Команда, когда дойдём до упаковки:
-//   jpackage --type exe|app-image|dmg --name Gwent
-//            --module gwent/gwent.launch.GwentApp
-//            --module-path <jlink-рантайм с JavaFX>
-//            --dest build/dist/<os>
-//
-// Точка входа — обычный javafx.application.Application.
-// Отдельный загрузчик jar сюда не подмешивается, иначе jpackage и run разъедутся.
+tasks.register('fatJar', Jar) {
+    group = 'build'
+    description = 'Собрать исполняемый Fat JAR со всеми зависимостями и ресурсами.'
+    archiveClassifier = 'all'
+
+    manifest {
+        attributes(
+                'Main-Class': 'gwent.launch.GwentLauncher',
+                'Implementation-Title': 'Gwent',
+                'Implementation-Version': project.version
+        )
+    }
+
+    from sourceSets.main.output
+
+    from {
+        configurations.runtimeClasspath.collect { file ->
+            file.isDirectory() ? file : zipTree(file)
+        }
+    }
+
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    exclude 'META-INF/*.SF'
+    exclude 'META-INF/*.DSA'
+    exclude 'META-INF/*.RSA'
+    exclude 'module-info.class'
+}
