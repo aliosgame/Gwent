@@ -21,12 +21,14 @@ import gwent.ui.card.CardCrop;
 import gwent.ui.card.CardFace;
 import gwent.ui.card.CardImages;
 import gwent.ui.card.CardStrip;
+import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
 import javafx.animation.PauseTransition;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
+import javafx.event.EventHandler;
 import javafx.geometry.BoundingBox;
 import javafx.geometry.Bounds;
 import javafx.geometry.Insets;
@@ -34,9 +36,11 @@ import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -70,12 +74,14 @@ public final class MatchScreen {
     private static final double FLY_MS = 480;
     private static final double SHOWCASE_HOLD_MS = 500;
     private static final double PASS_MS = 700;
+    private static final double PASS_HOLD_MS = 1000;
     private static final double ROUND_MS = 1400;
 
     private final Match match;
     private final MatchAi.Style opponentStyle;
     private final Runnable back;
     private final StackPane overlay = new StackPane();
+    private final StackPane dialogOverlay = new StackPane();
     private final CardStrip strip = new CardStrip();
     private final Label pickerTitle = new Label();
     private final Button pickerAct = new Button();
@@ -96,6 +102,15 @@ public final class MatchScreen {
     private StackPane showcaseHolder;
     private Label showcaseNote;
     private Node weatherSlot;
+    private Region passFillRegion;
+    private Rectangle passFillClip;
+    private double passBarWidth = 140;
+    private AnimationTimer passHoldTimer;
+    private long passHoldStartNano;
+    private boolean spaceKeyHeld;
+    private boolean mousePassHeld;
+    private final EventHandler<KeyEvent> keyPressedFilter = this::onKeyPressed;
+    private final EventHandler<KeyEvent> keyReleasedFilter = this::onKeyReleased;
     private Node rowsBox;
     private Node opponentDeckPile;
     private Node playerDeckPile;
@@ -142,15 +157,33 @@ public final class MatchScreen {
         flight.setMouseTransparent(true);
         flight.setPickOnBounds(false);
         buildOverlay();
-        root = new StackPane(table, flight, overlay);
+        buildDialogOverlay();
+        root = new StackPane(table, flight, overlay, dialogOverlay);
         root.getStyleClass().add("match-screen");
+        root.setFocusTraversable(true);
         // Иначе минимальная высота детей раздвигает окно на каждом перестроении.
         root.setMinSize(0, 0);
         table.setMinSize(0, 0);
         root.layoutBoundsProperty().addListener((obs, was, bounds) -> measure(bounds.getWidth(), bounds.getHeight()));
-        root.sceneProperty().addListener((obs, was, scene) -> {
-            if (scene != null) {
-                scene.addEventFilter(KeyEvent.KEY_PRESSED, this::onKey);
+        root.sceneProperty().addListener((obs, oldScene, newScene) -> {
+            if (oldScene != null) {
+                oldScene.removeEventFilter(KeyEvent.KEY_PRESSED, keyPressedFilter);
+                oldScene.removeEventFilter(KeyEvent.KEY_RELEASED, keyReleasedFilter);
+            }
+            if (newScene != null) {
+                newScene.addEventFilter(KeyEvent.KEY_PRESSED, keyPressedFilter);
+                newScene.addEventFilter(KeyEvent.KEY_RELEASED, keyReleasedFilter);
+                newScene.windowProperty().addListener((wObs, wWas, win) -> {
+                    if (win != null) {
+                        win.focusedProperty().addListener((fObs, fWas, focused) -> {
+                            if (!focused) {
+                                spaceKeyHeld = false;
+                                mousePassHeld = false;
+                                stopPassHold();
+                            }
+                        });
+                    }
+                });
             }
         });
         redraw();
@@ -160,14 +193,102 @@ public final class MatchScreen {
         return root;
     }
 
-    private void onKey(KeyEvent event) {
-        if (event.getCode() != KeyCode.ESCAPE || match.phase() == Match.Phase.MULLIGAN) {
+    private boolean isMatchOver() {
+        return match.phase() == Match.Phase.FINISHED
+                || match.winner() != null
+                || match.gems(Side.PLAYER) >= Match.ROUND_WINS
+                || match.gems(Side.OPPONENT) >= Match.ROUND_WINS;
+    }
+
+    private void onKeyPressed(KeyEvent event) {
+        if (root.getScene() == null) {
             return;
         }
-        if (overlay.isVisible() || (showcaseIndex != null && showcaseSide == Side.PLAYER)) {
-            cancelShowcase();
+        if (dialogOverlay.isVisible()) {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                hideSurrenderDialog();
+                event.consume();
+                return;
+            }
+            if (event.getCode() == KeyCode.ENTER) {
+                hideSurrenderDialog();
+                doBack();
+                event.consume();
+                return;
+            }
+            event.consume();
+            return;
+        }
+
+        if (isMatchOver()) {
+            if (event.getCode() == KeyCode.ESCAPE) {
+                doBack();
+                event.consume();
+                return;
+            }
+            if (event.getCode() == KeyCode.ENTER || event.getCode() == KeyCode.SPACE) {
+                event.consume();
+                return;
+            }
+            return;
+        }
+
+        if (event.getCode() == KeyCode.SPACE) {
+            if (match.phase() == Match.Phase.PLAY && !locked && playerCanChoose() && !match.passed(Side.PLAYER)
+                    && !overlay.isVisible()) {
+                if (!spaceKeyHeld) {
+                    spaceKeyHeld = true;
+                    startPassHold();
+                }
+            }
+            event.consume();
+            return;
+        }
+
+        if (event.getCode() == KeyCode.ENTER) {
+            event.consume();
+            return;
+        }
+
+        if (event.getCode() == KeyCode.Q && !isMatchOver() && match.phase() != Match.Phase.MULLIGAN && !overlay.isVisible()) {
+            showSurrenderDialog();
+            event.consume();
+            return;
+        }
+
+        if (event.getCode() == KeyCode.ESCAPE) {
+            if (match.phase() == Match.Phase.MULLIGAN) {
+                return;
+            }
+            if (overlay.isVisible() || (showcaseIndex != null && showcaseSide == Side.PLAYER)) {
+                cancelShowcase();
+                event.consume();
+                return;
+            }
+        }
+    }
+
+    private void onKeyReleased(KeyEvent event) {
+        if (root.getScene() == null) {
+            return;
+        }
+        if (event.getCode() == KeyCode.SPACE) {
+            spaceKeyHeld = false;
+            if (!mousePassHeld) {
+                stopPassHold();
+            }
             event.consume();
         }
+    }
+
+    private void doBack() {
+        Scene s = root.getScene();
+        if (s != null) {
+            s.removeEventFilter(KeyEvent.KEY_PRESSED, keyPressedFilter);
+            s.removeEventFilter(KeyEvent.KEY_RELEASED, keyReleasedFilter);
+        }
+        stopPassHold();
+        back.run();
     }
 
     private void measure(double width, double height) {
@@ -179,7 +300,8 @@ public final class MatchScreen {
         double right = 320;
         double band = clamp(height * 0.21, 112, 240);
         double deck = clamp(right * 0.40, 58, 124);
-        double room = Math.max(170, height - deck * 1.6 * 2 - 150);
+        double descH = clamp(86 * next, 74, 100);
+        double room = Math.max(140, height - deck * 1.2 * 2 - descH - 100);
         double showW = Math.min(right - 44, room * CardFace.SOURCE_WIDTH / CardFace.SOURCE_HEIGHT);
         double rowsRoom = Math.max(420, height - band - 28);
         double bandHeight = clamp(rowsRoom * 0.85 / 6.0, 88, 190);
@@ -215,6 +337,9 @@ public final class MatchScreen {
     }
 
     private void redraw() {
+        stopPassHold();
+        spaceKeyHeld = false;
+        mousePassHeld = false;
         rowPlates.clear();
         hornSlots.clear();
         unitNodes.clear();
@@ -223,6 +348,9 @@ public final class MatchScreen {
         gapNodes.clear();
         opponentDeckPile = null;
         playerDeckPile = null;
+        weatherSlot = null;
+        passFillRegion = null;
+        passFillClip = null;
         rowsBox = null;
         for (Side side : Side.values()) {
             rowPlates.put(side, new EnumMap<>(Row.class));
@@ -245,7 +373,7 @@ public final class MatchScreen {
         box.setMinHeight(0);
         Label round = new Label("Раунд " + match.round());
         round.getStyleClass().add("match-round");
-        VBox middle = new VBox(8, round, weatherSlot());
+        VBox middle = new VBox(6, round, weatherSlot(), passBar());
         middle.setAlignment(Pos.CENTER);
         box.getChildren().add(flexibleGap());
         box.getChildren().add(leaderPortrait(Side.OPPONENT));
@@ -424,7 +552,7 @@ public final class MatchScreen {
         StackPane slot = new StackPane();
         slot.getStyleClass().add("match-weather-slot");
         slot.setPickOnBounds(true);
-        double height = clamp(leftWidth * 0.62, 110, 168);
+        double height = clamp(leftWidth * 0.58, 100, 155);
         double width = height * 309.0 / 174.0;
         if (width > leftWidth - 8) {
             width = leftWidth - 8;
@@ -450,6 +578,118 @@ public final class MatchScreen {
         }
         weatherSlot = slot;
         return slot;
+    }
+
+    private Node passBar() {
+        double barWidth = clamp(leftWidth - 14, 130, 240);
+        double barHeight = clamp(30 * scale, 26, 36);
+
+        StackPane bar = new StackPane();
+        bar.getStyleClass().add("match-pass-bar");
+        bar.setMinSize(barWidth, barHeight);
+        bar.setPrefSize(barWidth, barHeight);
+        bar.setMaxSize(barWidth, barHeight);
+        bar.setAlignment(Pos.CENTER);
+
+        Region fill = new Region();
+        fill.getStyleClass().add("match-pass-fill");
+        fill.setMinSize(barWidth, barHeight);
+        fill.setPrefSize(barWidth, barHeight);
+        fill.setMaxSize(barWidth, barHeight);
+        fill.setMouseTransparent(true);
+
+        Rectangle fillClip = new Rectangle(0, barHeight);
+        fill.setClip(fillClip);
+        passFillRegion = fill;
+        passFillClip = fillClip;
+        passBarWidth = barWidth;
+        bar.getChildren().add(fill);
+
+        HBox content = new HBox(6);
+        content.setAlignment(Pos.CENTER);
+        content.setMouseTransparent(true);
+        content.setPrefWidth(barWidth);
+
+        if (match.passed(Side.PLAYER)) {
+            Label passed = new Label("Вы спасовали");
+            passed.getStyleClass().add("match-pass-done");
+            content.getChildren().add(passed);
+            bar.getStyleClass().add("match-pass-bar-disabled");
+        } else {
+            Label key = new Label("[ПРОБЕЛ]");
+            key.getStyleClass().add("match-pass-key");
+            Label hold = new Label("[ЗАЖАТЬ]");
+            hold.getStyleClass().add("match-pass-hold");
+            Label pass = new Label("Спасовать");
+            pass.getStyleClass().add("match-pass-text");
+            content.getChildren().addAll(key, hold, pass);
+
+            if (locked || !playerCanChoose() || match.phase() != Match.Phase.PLAY) {
+                bar.getStyleClass().add("match-pass-bar-disabled");
+            } else {
+                bar.setOnMousePressed(event -> {
+                    if (event.isPrimaryButtonDown()) {
+                        mousePassHeld = true;
+                        startPassHold();
+                    }
+                });
+                bar.setOnMouseReleased(event -> {
+                    mousePassHeld = false;
+                    if (!spaceKeyHeld) {
+                        stopPassHold();
+                    }
+                });
+                bar.setOnMouseExited(event -> {
+                    if (mousePassHeld) {
+                        mousePassHeld = false;
+                        if (!spaceKeyHeld) {
+                            stopPassHold();
+                        }
+                    }
+                });
+            }
+        }
+        bar.getChildren().add(content);
+        return bar;
+    }
+
+    private void startPassHold() {
+        if (locked || !playerCanChoose() || match.passed(Side.PLAYER) || match.phase() != Match.Phase.PLAY) {
+            return;
+        }
+        if (passHoldTimer != null) {
+            return;
+        }
+        passHoldStartNano = System.nanoTime();
+        passHoldTimer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                double elapsedMs = (now - passHoldStartNano) / 1_000_000.0;
+                double progress = Math.min(1.0, elapsedMs / PASS_HOLD_MS);
+                updatePassProgress(progress);
+                if (progress >= 1.0) {
+                    stopPassHold();
+                    spaceKeyHeld = false;
+                    mousePassHeld = false;
+                    onPass();
+                }
+            }
+        };
+        passHoldTimer.start();
+    }
+
+    private void stopPassHold() {
+        if (passHoldTimer != null) {
+            passHoldTimer.stop();
+            passHoldTimer = null;
+        }
+        updatePassProgress(0.0);
+    }
+
+    private void updatePassProgress(double progress) {
+        if (passFillClip != null) {
+            passFillClip.setWidth(passBarWidth * clamp(progress, 0.0, 1.0));
+        }
     }
 
     private HBox center() {
@@ -684,6 +924,7 @@ public final class MatchScreen {
             return face;
         }
         Button button = new Button();
+        button.setFocusTraversable(false);
         button.getStyleClass().add("card-tile");
         button.setGraphic(face);
         button.setOnMouseClicked(event -> {
@@ -716,6 +957,7 @@ public final class MatchScreen {
                     continue;
                 }
                 Button button = new Button();
+                button.setFocusTraversable(false);
                 button.getStyleClass().addAll("card-tile", "board-hand");
                 button.setGraphic(BoardCard.create(card, handCardWidth, shownStrength(card)));
                 if (canPick) {
@@ -765,31 +1007,21 @@ public final class MatchScreen {
         move.play();
     }
 
-    private VBox rightColumn() {
-        VBox box = new VBox(8);
+    private StackPane rightColumn() {
+        VBox box = new VBox();
         box.getStyleClass().add("match-rail-right");
-        box.setAlignment(Pos.TOP_CENTER);
+        box.setAlignment(Pos.CENTER);
         box.setPadding(new Insets(8, 12, 8, 18));
         box.setMinWidth(rightWidth);
         box.setPrefWidth(rightWidth);
         box.setMaxWidth(rightWidth);
         box.setMinHeight(0);
-        box.getChildren().add(piles(Side.OPPONENT));
-        showcaseNote = new Label(note);
-        showcaseNote.getStyleClass().add("match-note");
-        showcaseNote.setWrapText(true);
-        showcaseNote.setMaxWidth(rightWidth - 48);
-        showcaseNote.setAlignment(Pos.CENTER);
-        showcaseNote.setVisible(!note.isBlank());
-        showcaseNote.setManaged(!note.isBlank());
-        box.getChildren().add(showcaseNote);
 
         double fullH = CardFace.height(showcaseWidth, CardCrop.FULL);
         StackPane holder = new StackPane();
-        holder.setMinSize(0, 0);
+        holder.setMinSize(showcaseWidth, fullH);
         holder.setPrefSize(showcaseWidth, fullH);
-        holder.setMaxWidth(showcaseWidth);
-        holder.setMaxHeight(Double.MAX_VALUE);
+        holder.setMaxSize(showcaseWidth, fullH);
         holder.setAlignment(Pos.CENTER);
         if (showcaseIndex != null && !flying) {
             CardDef card = cardOf(showcaseSide, showcaseIndex);
@@ -805,25 +1037,135 @@ public final class MatchScreen {
                 }
             }
         }
-        VBox.setVgrow(holder, Priority.ALWAYS);
         showcaseHolder = holder;
-        box.getChildren().add(holder);
+
+        double descH = clamp(86 * scale, 74, 100);
+        StackPane descBox = new StackPane();
+        descBox.setMinSize(rightWidth - 44, descH);
+        descBox.setPrefSize(rightWidth - 44, descH);
+        descBox.setMaxSize(rightWidth - 44, descH);
+        descBox.setAlignment(Pos.CENTER);
+
+        showcaseNote = new Label(note);
+        showcaseNote.getStyleClass().add("match-note");
+        showcaseNote.setWrapText(true);
+        showcaseNote.setMaxWidth(rightWidth - 48);
+        showcaseNote.setAlignment(Pos.CENTER);
 
         Caption caption = holder.getUserData() instanceof Caption found ? found : null;
         if (caption != null && showcaseIndex != null && !flying) {
-            box.getChildren().add(skillBox(caption));
-        }
-        box.getChildren().add(piles(Side.PLAYER));
-        Button action = new Button(match.phase() == Match.Phase.FINISHED ? "К колоде" : "Пас");
-        action.getStyleClass().add("deck-action");
-        if (match.phase() == Match.Phase.FINISHED) {
-            action.setOnAction(event -> back.run());
+            descBox.getChildren().add(skillBox(caption));
+            showcaseNote.setVisible(false);
+        } else if (!note.isBlank()) {
+            showcaseNote.setVisible(true);
+            if (isMatchOver()) {
+                Button exitBtn = new Button("К колоде");
+                exitBtn.getStyleClass().add("deck-action");
+                exitBtn.setFocusTraversable(false);
+                exitBtn.setOnAction(event -> doBack());
+                VBox finishBox = new VBox(6, showcaseNote, exitBtn);
+                finishBox.setAlignment(Pos.CENTER);
+                descBox.getChildren().add(finishBox);
+            } else {
+                descBox.getChildren().add(showcaseNote);
+            }
         } else {
-            action.setDisable(locked || !playerCanChoose());
-            action.setOnAction(event -> onPass());
+            showcaseNote.setVisible(false);
+            descBox.getChildren().add(showcaseNote);
         }
-        box.getChildren().add(action);
-        return box;
+
+        VBox centerUnit = new VBox(clamp(10 * scale, 8, 14), holder, descBox);
+        centerUnit.setAlignment(Pos.CENTER);
+
+        box.getChildren().add(flexibleGap());
+        box.getChildren().add(piles(Side.OPPONENT));
+        box.getChildren().add(flexibleGap());
+        box.getChildren().add(centerUnit);
+        box.getChildren().add(flexibleGap());
+        box.getChildren().add(piles(Side.PLAYER));
+        box.getChildren().add(flexibleGap());
+
+        Node surrender = surrenderButton();
+        StackPane.setAlignment(surrender, Pos.TOP_RIGHT);
+        StackPane.setMargin(surrender, new Insets(6, 8, 0, 0));
+
+        StackPane pane = new StackPane(box, surrender);
+        pane.setMinWidth(rightWidth);
+        pane.setPrefWidth(rightWidth);
+        pane.setMaxWidth(rightWidth);
+        return pane;
+    }
+
+    private Node surrenderButton() {
+        Button button = new Button("✕");
+        button.setFocusTraversable(false);
+        button.getStyleClass().add("match-surrender-btn");
+        double size = clamp(56 * scale, 48, 64);
+        button.setMinSize(size, size);
+        button.setPrefSize(size, size);
+        button.setMaxSize(size, size);
+        Tooltip tip = new Tooltip(isMatchOver() ? "Выйти (Esc)" : "Сдаться (Q)");
+        Tooltip.install(button, tip);
+        button.setOnMouseClicked(event -> {
+            if (isMatchOver() || event.isShiftDown()) {
+                doBack();
+            } else {
+                showSurrenderDialog();
+            }
+        });
+        return button;
+    }
+
+    private void buildDialogOverlay() {
+        dialogOverlay.getStyleClass().add("match-surrender-overlay");
+        dialogOverlay.setVisible(false);
+        dialogOverlay.setMouseTransparent(true);
+    }
+
+    private void showSurrenderDialog() {
+        if (dialogOverlay.isVisible()) {
+            return;
+        }
+        dialogOverlay.getChildren().clear();
+        VBox dialog = new VBox(16);
+        dialog.getStyleClass().add("match-surrender-dialog");
+        dialog.setAlignment(Pos.CENTER);
+        dialog.setMaxWidth(400);
+        dialog.setMaxHeight(Region.USE_PREF_SIZE);
+
+        Label title = new Label("Сдаться?");
+        title.getStyleClass().add("match-surrender-title");
+
+        Label prompt = new Label("Вы действительно хотите признать поражение\nи покинуть игру?");
+        prompt.getStyleClass().add("match-surrender-body");
+        prompt.setWrapText(true);
+
+        Button confirm = new Button("Сдаться");
+        confirm.getStyleClass().add("deck-action");
+        confirm.setOnAction(event -> {
+            hideSurrenderDialog();
+            doBack();
+        });
+
+        Button cancel = new Button("Отмена");
+        cancel.getStyleClass().add("deck-action");
+        cancel.setOnAction(event -> hideSurrenderDialog());
+
+        HBox actions = new HBox(16, confirm, cancel);
+        actions.setAlignment(Pos.CENTER);
+
+        dialog.getChildren().addAll(title, prompt, actions);
+        dialogOverlay.getChildren().add(dialog);
+        dialogOverlay.setVisible(true);
+        dialogOverlay.setMouseTransparent(false);
+        cancel.requestFocus();
+    }
+
+    private void hideSurrenderDialog() {
+        dialogOverlay.setVisible(false);
+        dialogOverlay.setMouseTransparent(true);
+        dialogOverlay.getChildren().clear();
+        root.requestFocus();
     }
 
     private VBox skillBox(Caption caption) {
@@ -1058,6 +1400,9 @@ public final class MatchScreen {
         if (locked || !playerCanChoose()) {
             return;
         }
+        stopPassHold();
+        spaceKeyHeld = false;
+        mousePassHeld = false;
         heldGaps.clear();
         showcaseIndex = null;
         showcaseSide = null;
@@ -1556,7 +1901,9 @@ public final class MatchScreen {
         pickerTitle.getStyleClass().add("leader-picker-title");
         strip.setMaxWidth(Double.MAX_VALUE);
         pickerAct.getStyleClass().add("deck-action");
+        pickerAct.setFocusTraversable(false);
         pickerDone.getStyleClass().add("deck-action");
+        pickerDone.setFocusTraversable(false);
         HBox actions = new HBox(12, pickerAct, pickerDone);
         actions.setAlignment(Pos.CENTER);
         VBox panel = new VBox(18, pickerTitle, strip, actions);

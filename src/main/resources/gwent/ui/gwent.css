@@ -426,6 +426,104 @@
     -fx-text-alignment: center;
 }
 
+/* Match Pass Bar (Left Column) */
+.match-pass-bar {
+    -fx-background-color: #060608;
+    -fx-border-color: rgba(70, 56, 38, 0.7);
+    -fx-border-width: 1;
+    -fx-cursor: hand;
+}
+
+.match-pass-bar:hover {
+    -fx-border-color: rgba(140, 112, 68, 0.85);
+}
+
+.match-pass-bar-disabled {
+    -fx-opacity: 0.45;
+    -fx-cursor: default;
+}
+
+.match-pass-fill {
+    -fx-background-color: rgba(140, 140, 145, 0.55);
+}
+
+.match-pass-key {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #c5ac98;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.9), 3, 0.8, 0, 1);
+}
+
+.match-pass-hold {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.9), 3, 0.8, 0, 1);
+}
+
+.match-pass-text {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #af7c45;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.9), 3, 0.8, 0, 1);
+}
+
+.match-pass-done {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 18px;
+    -fx-text-fill: #ffffff;
+}
+
+/* Surrender Button & Overlay Dialog */
+.match-surrender-btn {
+    -fx-background-color: rgba(14, 10, 8, 0.82);
+    -fx-border-color: rgba(130, 105, 65, 0.7);
+    -fx-border-width: 1.5;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+    -fx-alignment: center;
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #cbbfa8;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 4, 0.6, 0, 1);
+}
+
+.match-surrender-btn:hover {
+    -fx-background-color: rgba(45, 32, 18, 0.95);
+    -fx-border-color: #e6c27a;
+    -fx-text-fill: #fff6e4;
+    -fx-effect: dropshadow(gaussian, rgba(230, 194, 122, 0.5), 8, 0.7, 0, 0);
+}
+
+.match-surrender-overlay {
+    -fx-background-color: rgba(0, 0, 0, 0.72);
+}
+
+.match-surrender-dialog {
+    -fx-background-color: rgba(14, 11, 8, 0.96);
+    -fx-border-color: #8c7044;
+    -fx-border-width: 1.5;
+    -fx-padding: 24 32 24 32;
+}
+
+.match-surrender-title {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 22px;
+    -fx-text-fill: #e6c27a;
+}
+
+.match-surrender-body {
+    -fx-font-family: "Philosopher", "Georgia", serif;
+    -fx-font-size: 15px;
+    -fx-text-fill: #e6d7bc;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+}
+
 .deck-header {
     -fx-padding: 16 20 8 20;
 }
