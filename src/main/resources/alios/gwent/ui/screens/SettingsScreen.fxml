@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane xmlns="http://javafx.com/javafx/25"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="alios.gwent.ui.screens.SettingsController"
+            prefWidth="1920.0"
+            prefHeight="1080.0"
+            styleClass="main-menu-root"
+            stylesheets="@../styles/gwent.css">
+
+    <top>
+        <VBox alignment="CENTER" spacing="12.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets top="80.0" bottom="20.0"/>
+            </padding>
+            <Label text="НАСТРОЙКИ" styleClass="game-title"/>
+            <Label text="КОНФИГУРАЦИЯ ПРИЛОЖЕНИЯ" styleClass="game-subtitle"/>
+        </VBox>
+    </top>
+
+    <center>
+        <VBox alignment="CENTER" spacing="25.0" maxWidth="600.0" BorderPane.alignment="CENTER">
+            <GridPane hgap="20.0" vgap="16.0" alignment="CENTER">
+                <Label text="Разрешение экрана:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="hint-label"/>
+                <Label fx:id="resolutionValueLabel" text="1920 x 1080" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="status-label"/>
+
+                <Label text="Минимальное разрешение:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="hint-label"/>
+                <Label fx:id="minResolutionValueLabel" text="1600 x 900" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="status-label"/>
+
+                <Label text="Общая громкость:" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="hint-label"/>
+                <Label fx:id="masterVolumeLabel" text="80%" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="status-label"/>
+
+                <Label text="Громкость музыки:" GridPane.columnIndex="0" GridPane.rowIndex="3" styleClass="hint-label"/>
+                <Label fx:id="musicVolumeLabel" text="80%" GridPane.columnIndex="1" GridPane.rowIndex="3" styleClass="status-label"/>
+
+                <Label text="Громкость эффектов:" GridPane.columnIndex="0" GridPane.rowIndex="4" styleClass="hint-label"/>
+                <Label fx:id="sfxVolumeLabel" text="80%" GridPane.columnIndex="1" GridPane.rowIndex="4" styleClass="status-label"/>
+            </GridPane>
+
+            <Button text="НАЗАД В МЕНЮ" onAction="#onBackButton" maxWidth="Infinity" styleClass="menu-button"/>
+        </VBox>
+    </center>
+
+    <bottom>
+        <HBox alignment="CENTER_LEFT" spacing="30.0" BorderPane.alignment="CENTER">
+            <padding>
+                <Insets left="50.0" right="50.0" bottom="40.0"/>
+            </padding>
+            <Label text="[ESC / BACKSPACE] Назад в главное меню" styleClass="hint-label"/>
+            <Label fx:id="infoLabel" text="Конфигурация синхронизирована с файлом" styleClass="status-label"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

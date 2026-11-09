@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <!-- Перехват управления в момент завершения работы для гарантии, что асинхронные логгеры успеют записать всё, что оставалось в очереди.-->
+    <shutdownHook class="ch.qos.logback.core.hook.DefaultShutdownHook"/>
+    <!-- Моя кастомная раскраска консоли на винде -->
+    <conversionRule conversionWord="consoleColor" class="alios.gwent.logging.ConsoleColors"/>
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%consoleColor([%d{yyyy.MM.dd - HH:mm:ss.SSS}] %-5level %msg%n)</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <!-- По умолчанию уровень WARN, чтобы консоль не засорялась служебными INFO-сообщениями -->
+    <root level="WARN">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</configuration>

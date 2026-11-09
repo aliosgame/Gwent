@@ -1,0 +1,29 @@
+# Gradle
+.gradle/
+build/
+
+# JetBrains IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Eclipse / VS Code
+.settings/
+.project
+.classpath
+.vscode/
+
+# OS generated
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Crash logs
+hs_err_pid*
+replay_pid*
+
+# Project research & scratchpad (AGENTS.md)
+.ANALYZE/

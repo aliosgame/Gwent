@@ -1,0 +1,71 @@
+.root {
+    -fx-font-family: "Cinzel", "Georgia", "Times New Roman", serif;
+    -fx-base: #141311;
+    -fx-background: #0d0c0a;
+}
+
+.main-menu-root {
+    -fx-background-color: radial-gradient(center 50% 50%, radius 80%, #1e1b16 0%, #0d0c0a 100%);
+}
+
+.game-title {
+    -fx-font-size: 72px;
+    -fx-font-weight: bold;
+    -fx-text-fill: linear-gradient(to bottom, #f3e5ab, #c89e5a 70%, #7d5921 100%);
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.85), 18, 0.4, 0, 4);
+}
+
+.game-subtitle {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #9a8a72;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.6), 6, 0.2, 0, 1);
+}
+
+.resolution-badge {
+    -fx-font-size: 13px;
+    -fx-text-fill: #6d6150;
+    -fx-padding: 4px 10px;
+    -fx-background-color: rgba(30, 26, 21, 0.6);
+    -fx-border-color: #3d352b;
+    -fx-border-width: 1px;
+    -fx-border-radius: 4px;
+    -fx-background-radius: 4px;
+}
+
+.menu-button {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #d8c7a6;
+    -fx-background-color: linear-gradient(to bottom, rgba(46, 39, 31, 0.85), rgba(28, 24, 19, 0.95));
+    -fx-border-color: #6a573b;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 2px;
+    -fx-background-radius: 2px;
+    -fx-padding: 12px 28px;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.5), 8, 0, 0, 3);
+}
+
+.menu-button:hover {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: linear-gradient(to bottom, rgba(74, 62, 48, 0.95), rgba(46, 39, 31, 0.98));
+    -fx-border-color: #c89e5a;
+    -fx-effect: dropshadow(gaussian, rgba(200, 158, 90, 0.4), 14, 0.2, 0, 0);
+}
+
+.menu-button:pressed {
+    -fx-background-color: #1a1612;
+    -fx-border-color: #8b6e3f;
+    -fx-text-fill: #c89e5a;
+}
+
+.hint-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #7c705e;
+}
+
+.status-label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #c89e5a;
+}
