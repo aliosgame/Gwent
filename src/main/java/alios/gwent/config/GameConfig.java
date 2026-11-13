@@ -1,22 +1,21 @@
 package alios.gwent.config;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
- * Конфигурация параметров игры (разрешение экрана, громкость, полноэкранный режим).
+ * Конфигурация параметров игры (разрешение экрана, громкость, полноэкранный режим, mute).
  * Доступ к полям осуществляется напрямую без лишнего бойлерплейта.
  */
 public class GameConfig extends BaseConfig {
 
-    public static final int MIN_WIDTH = 1600;
-    public static final int MIN_HEIGHT = 900;
     private static final double DEFAULT_VOLUME = 0.8;
 
-    public volatile int resolutionWidth = 1920;
-    public volatile int resolutionHeight = 1080;
-    public volatile boolean fullscreen = false;
+    public Resolution resolution = Resolution.detectDefault();
+    public boolean fullscreen = false;
 
-    public volatile double masterVolume = DEFAULT_VOLUME;
-    public volatile double musicVolume = DEFAULT_VOLUME;
-    public volatile double sfxVolume = DEFAULT_VOLUME;
+    public boolean mute = false;
+    public double musicVolume = DEFAULT_VOLUME;
+    public double sfxVolume = DEFAULT_VOLUME;
 
     private GameConfig() {
         super("settings.json");
@@ -25,17 +24,18 @@ public class GameConfig extends BaseConfig {
 
     @Override
     protected void postLoad() {
-        int width = Math.max(resolutionWidth, MIN_WIDTH);
-        int height = Math.max(resolutionHeight, MIN_HEIGHT);
-        double master = clampVolume(masterVolume);
-        double music = clampVolume(musicVolume);
-        double sfx = clampVolume(sfxVolume);
+        this.musicVolume = clampVolume(musicVolume);
+        this.sfxVolume = clampVolume(sfxVolume);
+    }
 
-        this.resolutionWidth = width;
-        this.resolutionHeight = height;
-        this.masterVolume = master;
-        this.musicVolume = music;
-        this.sfxVolume = sfx;
+    @JsonIgnore
+    public int getResolutionWidth() {
+        return resolution != null ? resolution.getWidth() : Resolution.R_1920_1080.getWidth();
+    }
+
+    @JsonIgnore
+    public int getResolutionHeight() {
+        return resolution != null ? resolution.getHeight() : Resolution.R_1920_1080.getHeight();
     }
 
     private static double clampVolume(double volume) {

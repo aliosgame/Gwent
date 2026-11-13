@@ -8,37 +8,29 @@ import static org.junit.jupiter.api.Assertions.*;
 class GameConfigTest {
 
     @Test
-    @DisplayName("Singleton instance provides initialized configuration")
+    @DisplayName("Singleton instance provides initialized configuration with auto-detected resolution")
     void testSingletonInstance() {
         GameConfig config = GameConfig.get();
         assertNotNull(config);
         assertSame(config, GameConfig.get());
 
-        assertTrue(config.resolutionWidth >= GameConfig.MIN_WIDTH);
-        assertTrue(config.resolutionHeight >= GameConfig.MIN_HEIGHT);
-        assertTrue(config.masterVolume >= 0.0 && config.masterVolume <= 1.0);
+        assertNotNull(config.resolution);
+        assertTrue(config.getResolutionWidth() >= 1280);
+        assertTrue(config.getResolutionHeight() >= 720);
         assertTrue(config.musicVolume >= 0.0 && config.musicVolume <= 1.0);
         assertTrue(config.sfxVolume >= 0.0 && config.sfxVolume <= 1.0);
     }
 
     @Test
-    @DisplayName("Enforces minimum resolution boundaries via postLoad()")
-    void testEnforcesMinimumResolution() {
-        GameConfig config = GameConfig.get();
-        int originalWidth = config.resolutionWidth;
-        int originalHeight = config.resolutionHeight;
+    @DisplayName("Resolution detectDefault and getAvailable provide valid defaults")
+    void testResolutionDefaults() {
+        Resolution def = Resolution.detectDefault();
+        assertNotNull(def);
 
-        try {
-            config.resolutionWidth = 800;
-            config.resolutionHeight = 600;
-            config.postLoad();
-
-            assertEquals(GameConfig.MIN_WIDTH, config.resolutionWidth);
-            assertEquals(GameConfig.MIN_HEIGHT, config.resolutionHeight);
-        } finally {
-            config.resolutionWidth = originalWidth;
-            config.resolutionHeight = originalHeight;
-        }
+        var available = Resolution.getAvailable();
+        assertNotNull(available);
+        assertFalse(available.isEmpty());
+        assertTrue(available.contains(Resolution.R_1280_720));
     }
 
     @Test

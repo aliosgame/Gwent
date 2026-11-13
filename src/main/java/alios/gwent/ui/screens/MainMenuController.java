@@ -54,8 +54,7 @@ public class MainMenuController extends BaseScreenController {
         LOGGER.info("Entered MainMenu");
         GameConfig config = GameConfig.get();
         if (resolutionLabel != null) {
-            resolutionLabel.setText(String.format("%d x %d (Reference: 1080p)",
-                    config.resolutionWidth, config.resolutionHeight));
+            resolutionLabel.setText(String.format("%s (Reference: 1080p)", config.resolution));
         }
         if (statusLabel != null) {
             statusLabel.setText("Главное меню активно");

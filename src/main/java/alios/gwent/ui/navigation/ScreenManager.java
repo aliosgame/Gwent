@@ -1,6 +1,7 @@
 package alios.gwent.ui.navigation;
 
 import alios.gwent.config.GameConfig;
+import alios.gwent.config.Resolution;
 import alios.gwent.ui.screens.MainMenuController;
 import alios.gwent.ui.screens.SettingsController;
 import javafx.application.Platform;
@@ -8,6 +9,7 @@ import javafx.beans.InvalidationListener;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
@@ -42,7 +44,7 @@ public final class ScreenManager {
     private static StackPane rootContainer;
     private static StackPane viewport;
 
-    private static BaseScreenController currentController;
+    private static volatile BaseScreenController activeController;
 
     private ScreenManager() {
     }
@@ -56,14 +58,17 @@ public final class ScreenManager {
     public static void init(Stage primaryStage) {
         stage = Objects.requireNonNull(primaryStage, "primaryStage must not be null");
 
+        // Запрещаем произвольный ресайз окна мышью для соблюдения строгого 16:9
+        stage.setResizable(false);
+        stage.setFullScreenExitHint("");
+        stage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
+
         GameConfig config = GameConfig.get();
-        stage.setMinWidth(GameConfig.MIN_WIDTH);
-        stage.setMinHeight(GameConfig.MIN_HEIGHT);
-        stage.setWidth(config.resolutionWidth);
-        stage.setHeight(config.resolutionHeight);
 
         rootContainer = new StackPane();
         rootContainer.setStyle("-fx-background-color: #0b0a08;");
+        rootContainer.setMinSize(Resolution.R_1280_720.getWidth(), Resolution.R_1280_720.getHeight());
+        rootContainer.setPrefSize(config.getResolutionWidth(), config.getResolutionHeight());
 
         viewport = new StackPane();
         viewport.setMinSize(REFERENCE_WIDTH, REFERENCE_HEIGHT);
@@ -85,16 +90,27 @@ public final class ScreenManager {
         rootContainer.heightProperty().addListener(scaleListener);
         rootContainer.getChildren().add(viewport);
 
-        scene = new Scene(rootContainer, config.resolutionWidth, config.resolutionHeight);
+        scene = new Scene(rootContainer, config.getResolutionWidth(), config.getResolutionHeight());
 
-        // Централизованная изоляция клавиатурных событий: доставка строго активному контроллеру
         scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
-            if (currentController != null) {
-                currentController.onKeyPressed(event);
+            // Сначала глобальный перехват клавиатуры: Alt+Enter (Fullscreen), Alt+M (Mute)
+            if (GlobalKeyboardHandler.handle(event)) {
+                event.consume();
+                return;
+            }
+
+            // Потом перехват клавиатуры активным контроллером
+            if (activeController != null) {
+                activeController.onKeyPressed(event);
             }
         });
 
         stage.setScene(scene);
+
+        if (config.fullscreen) {
+            stage.setFullScreen(true);
+        }
+
         LOGGER.info("ScreenManager initialized successfully");
     }
 
@@ -110,22 +126,22 @@ public final class ScreenManager {
             throw new IllegalStateException("ScreenManager must be initialized before showing screens");
         }
 
-        if (nextController == currentController) {
+        if (nextController == activeController) {
             return;
         }
 
-        if (currentController != null) {
+        if (activeController != null) {
             try {
-                currentController.onExit();
+                activeController.onExit();
             } catch (Exception e) {
-                LOGGER.error("Error during onExit in {}", currentController.getClass().getSimpleName(), e);
+                LOGGER.error("Error during onExit in {}", activeController.getClass().getSimpleName(), e);
             }
         }
 
         Parent nextRoot = nextController.getRoot();
         viewport.getChildren().setAll(nextRoot);
 
-        currentController = nextController;
+        activeController = nextController;
 
         nextRoot.setFocusTraversable(true);
         if (Platform.isFxApplicationThread()) {
@@ -141,6 +157,45 @@ public final class ScreenManager {
         }
 
         LOGGER.info("Active screen switched to: {}", nextController.getClass().getSimpleName());
+    }
+
+    /**
+     * Применяет актуальные параметры отображения (разрешение и полноэкранный режим) из GameConfig.
+     */
+    public static void applyDisplaySettings() {
+        if (stage == null) {
+            return;
+        }
+
+        GameConfig config = GameConfig.get();
+        boolean fullscreen = config.fullscreen;
+        int width = config.getResolutionWidth();
+        int height = config.getResolutionHeight();
+
+        if (fullscreen) {
+            stage.setFullScreen(true);
+        } else {
+            if (stage.isFullScreen()) {
+                stage.setFullScreen(false);
+            }
+
+            // На Windows и других ОС вычисляем размеры декораций окна (рамки + заголовок)
+            double decorWidth = 0;
+            double decorHeight = 0;
+            if (scene != null && stage.isShowing()) {
+                decorWidth = Math.max(0, stage.getWidth() - scene.getWidth());
+                decorHeight = Math.max(0, stage.getHeight() - scene.getHeight());
+            }
+
+            stage.setWidth(width + decorWidth);
+            stage.setHeight(height + decorHeight);
+            stage.centerOnScreen();
+        }
+        LOGGER.info("Applied display settings: {}x{}, fullscreen={}", width, height, fullscreen);
+    }
+
+    public static BaseScreenController getActiveController() {
+        return activeController;
     }
 
     /**
@@ -178,12 +233,12 @@ public final class ScreenManager {
         }
     }
 
-    public static BaseScreenController getCurrentController() {
-        return currentController;
-    }
+    // =========================================================================
+    // Getters для юнит-тестов
+    // =========================================================================
 
-    public static boolean isCurrent(BaseScreenController controller) {
-        return currentController == controller;
+    public static Stage getStage() {
+        return stage;
     }
 
     public static Scene getScene() {

@@ -43,6 +43,15 @@ public abstract class BaseScreenController {
     }
 
     /**
+     * Проверяет, является ли данный экран в данный момент активным в ScreenManager.
+     *
+     * @return true, если экран сейчас отображается во вьюпорте
+     */
+    public final boolean isActive() {
+        return ScreenManager.getActiveController() == this;
+    }
+
+    /**
      * Вызывается при переходе на экран после добавления его корневой ноды во вьюпорт.
      */
     public abstract void onEnter();

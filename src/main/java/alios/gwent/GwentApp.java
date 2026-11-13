@@ -1,5 +1,6 @@
 package alios.gwent;
 
+import alios.gwent.audio.AudioPlayer;
 import alios.gwent.ui.navigation.ScreenManager;
 import javafx.application.Application;
 import javafx.stage.Stage;
@@ -14,6 +15,7 @@ public class GwentApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         ScreenManager.init(primaryStage);
+        AudioPlayer.startMusic();
         ScreenManager.show(ScreenManager.MAIN_MENU);
 
         primaryStage.setTitle(APP_TITLE);
