@@ -34,29 +34,11 @@ public class SettingsController extends BaseScreenController {
     @FXML private Slider sfxVolumeSlider;
     @FXML private Label sfxVolumeValueLabel;
 
-    @FXML private Button saveButton;
-    @FXML private Button cancelButton;
+    // =========================================================================
+    // Constructors and Initialization
+    // =========================================================================
 
     public SettingsController() {
-    }
-
-    @Override
-    public void onEnter() {
-        LOGGER.info("Entered SettingsScreen");
-        syncFromConfig();
-    }
-
-    @Override
-    public void onExit() {
-        LOGGER.info("Exiting SettingsScreen");
-    }
-
-    @Override
-    public void onKeyPressed(KeyEvent event) {
-        if (event.getCode() == KeyCode.ESCAPE || event.getCode() == KeyCode.BACK_SPACE) {
-            onCancelButton();
-            event.consume();
-        }
     }
 
     @FXML
@@ -87,56 +69,31 @@ public class SettingsController extends BaseScreenController {
         sfxVolumeSlider.setOnMouseReleased(event -> AudioPlayer.playSfx(PREVIEW_SFX));
     }
 
-    @FXML
-    private void onSaveButton() {
-        GameConfig config = GameConfig.get();
+    // =========================================================================
+    // Public Business Logic
+    // =========================================================================
 
-        boolean newFullscreen = fullscreenCheckBox.isSelected();
-        Resolution selectedRes = resolutionComboBox.getValue();
-        if (selectedRes == null) {
-            selectedRes = config.resolution;
-        }
-
-        boolean newMute = muteCheckBox.isSelected();
-        double newMusic = Math.round(musicVolumeSlider.getValue()) / 100.0;
-        double newSfx = Math.round(sfxVolumeSlider.getValue()) / 100.0;
-
-        boolean displayChanged = (config.fullscreen != newFullscreen)
-                || (!newFullscreen && config.resolution != selectedRes);
-
-        boolean audioChanged = config.mute != newMute
-                || Math.abs(config.musicVolume - newMusic) >= 0.005
-                || Math.abs(config.sfxVolume - newSfx) >= 0.005;
-
-        if (displayChanged) {
-            config.fullscreen = newFullscreen;
-            config.resolution = selectedRes;
-            ScreenManager.applyDisplaySettings();
-        }
-
-        if (audioChanged) {
-            config.mute = newMute;
-            config.musicVolume = newMusic;
-            config.sfxVolume = newSfx;
-            AudioPlayer.applyConfig();
-        }
-
-        if (displayChanged || audioChanged) {
-            config.save();
-            LOGGER.info("Settings saved: displayChanged={}, audioChanged={}", displayChanged, audioChanged);
-        }
-
-        ScreenManager.show(ScreenManager.MAIN_MENU);
+    @Override
+    public void onEnter() {
+        LOGGER.info("Entered SettingsScreen");
+        syncFromConfig();
     }
 
-    @FXML
-    private void onCancelButton() {
-        AudioPlayer.applyConfig();
-        ScreenManager.show(ScreenManager.MAIN_MENU);
+    @Override
+    public void onExit() {
+        LOGGER.info("Exiting SettingsScreen");
+    }
+
+    @Override
+    public void onKeyPressed(KeyEvent event) {
+        if (event.getCode() == KeyCode.ESCAPE || event.getCode() == KeyCode.BACK_SPACE) {
+            onCancelButton();
+            event.consume();
+        }
     }
 
     /**
-     * Синхронизирует состояние элементов UI с текущими параметрами GameConfig.
+     * Синхронизирует состояние элементов UI с актуальными параметрами GameConfig.
      */
     public void syncFromConfig() {
         if (!isActive()) {
@@ -161,30 +118,82 @@ public class SettingsController extends BaseScreenController {
     }
 
     // =========================================================================
-    // Getters для юнит-тестов
+    // Private Helpers
     // =========================================================================
 
-    public CheckBox getFullscreenCheckBox() {
+    @FXML
+    private void onSaveButton() {
+        GameConfig config = GameConfig.get();
+
+        boolean newFullscreen = fullscreenCheckBox.isSelected();
+        Resolution selectedRes = resolutionComboBox.getValue();
+        if (selectedRes == null) {
+            selectedRes = config.resolution;
+        }
+
+        boolean newMute = muteCheckBox.isSelected();
+        double newMusic = Math.round(musicVolumeSlider.getValue()) / 100.0;
+        double newSfx = Math.round(sfxVolumeSlider.getValue()) / 100.0;
+
+        boolean displayChanged = (config.fullscreen != newFullscreen)
+                || (!newFullscreen && config.resolution != selectedRes);
+
+        boolean audioChanged = config.mute != newMute
+                || Math.abs(config.musicVolume - newMusic) >= 0.005
+                || Math.abs(config.sfxVolume - newSfx) >= 0.005;
+
+        if (displayChanged) {
+            config.fullscreen = newFullscreen;
+            config.resolution = selectedRes;
+            ScreenManager.syncFromConfig();
+        }
+
+        if (audioChanged) {
+            config.mute = newMute;
+            config.musicVolume = newMusic;
+            config.sfxVolume = newSfx;
+            AudioPlayer.syncFromConfig();
+        }
+
+        if (displayChanged || audioChanged) {
+            config.save();
+            LOGGER.info("Settings saved: displayChanged={}, audioChanged={}", displayChanged, audioChanged);
+        }
+
+        ScreenManager.show(ScreenManager.MAIN_MENU);
+    }
+
+    @FXML
+    private void onCancelButton() {
+        AudioPlayer.syncFromConfig();
+        ScreenManager.show(ScreenManager.MAIN_MENU);
+    }
+
+    // =========================================================================
+    // Getters / helpers for unit tests
+    // =========================================================================
+
+    CheckBox getFullscreenCheckBox() {
         return fullscreenCheckBox;
     }
 
-    public ComboBox<Resolution> getResolutionComboBox() {
+    ComboBox<Resolution> getResolutionComboBox() {
         return resolutionComboBox;
     }
 
-    public CheckBox getMuteCheckBox() {
+    CheckBox getMuteCheckBox() {
         return muteCheckBox;
     }
 
-    public Slider getMusicVolumeSlider() {
+    Slider getMusicVolumeSlider() {
         return musicVolumeSlider;
     }
 
-    public Slider getSfxVolumeSlider() {
+    Slider getSfxVolumeSlider() {
         return sfxVolumeSlider;
     }
 
-    public Label getMusicVolumeValueLabel() {
+    Label getMusicVolumeValueLabel() {
         return musicVolumeValueLabel;
     }
 }

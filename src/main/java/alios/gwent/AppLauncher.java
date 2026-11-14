@@ -8,6 +8,7 @@ import javafx.application.Application;
 public final class AppLauncher {
 
     private AppLauncher() {
+        throw new AssertionError("This class is not intended to create instances.");
     }
 
     public static void main(String[] args) {

@@ -46,7 +46,12 @@ public final class ScreenManager {
 
     private static volatile BaseScreenController activeController;
 
+    // =========================================================================
+    // Constructors and Initialization
+    // =========================================================================
+
     private ScreenManager() {
+        throw new AssertionError("This class is not intended to create instances.");
     }
 
     /**
@@ -114,6 +119,10 @@ public final class ScreenManager {
         LOGGER.info("ScreenManager initialized successfully");
     }
 
+    // =========================================================================
+    // Public Business Logic
+    // =========================================================================
+
     /**
      * Переключает отображаемый экран приложения на указанный контроллер.
      *
@@ -160,9 +169,9 @@ public final class ScreenManager {
     }
 
     /**
-     * Применяет актуальные параметры отображения (разрешение и полноэкранный режим) из GameConfig.
+     * Синхронизирует параметры отображения (разрешение и полноэкранный режим) с актуальным GameConfig.
      */
-    public static void applyDisplaySettings() {
+    public static void syncFromConfig() {
         if (stage == null) {
             return;
         }
@@ -194,9 +203,17 @@ public final class ScreenManager {
         LOGGER.info("Applied display settings: {}x{}, fullscreen={}", width, height, fullscreen);
     }
 
+    // =========================================================================
+    // Getters and Setters
+    // =========================================================================
+
     public static BaseScreenController getActiveController() {
         return activeController;
     }
+
+    // =========================================================================
+    // Private Helpers
+    // =========================================================================
 
     /**
      * Загружает FXML-разметку экрана, связывает с ней полученный контроллер
@@ -234,18 +251,18 @@ public final class ScreenManager {
     }
 
     // =========================================================================
-    // Getters для юнит-тестов
+    // Getters / helpers for unit tests
     // =========================================================================
 
-    public static Stage getStage() {
+    static Stage getStage() {
         return stage;
     }
 
-    public static Scene getScene() {
+    static Scene getScene() {
         return scene;
     }
 
-    public static Pane getViewport() {
+    static Pane getViewport() {
         return viewport;
     }
 }

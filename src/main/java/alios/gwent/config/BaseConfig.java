@@ -43,10 +43,51 @@ public abstract class BaseConfig {
     @JsonIgnore
     private final File configFile;
 
+    // =========================================================================
+    // Constructors and Initialization
+    // =========================================================================
+
     protected BaseConfig(String fileName) {
         Objects.requireNonNull(fileName, "fileName must not be null");
         this.configFile = new File(WORK_DIR, fileName);
     }
+
+    /**
+     * Инициализирует конфигурацию: если файл отсутствует — создает со значениями по умолчанию,
+     * если существует — загружает данные и синхронизирует структуру.
+     */
+    protected final void init() {
+        if (!configFile.exists()) {
+            save();
+        } else {
+            load();
+        }
+    }
+
+    /**
+     * Хук пост-обработки для валидации или корректировки значений после загрузки.
+     */
+    protected void postLoad() {
+    }
+
+    // =========================================================================
+    // Public Business Logic
+    // =========================================================================
+
+    /**
+     * Сохраняет текущие значения полей в JSON-файл.
+     */
+    public synchronized void save() {
+        try {
+            MAPPER.writeValue(configFile, this);
+        } catch (IOException e) {
+            LOGGER.error("Failed to save config to {}", configFile, e);
+        }
+    }
+
+    // =========================================================================
+    // Private Helpers
+    // =========================================================================
 
     private static File ensureWorkDirectoryExists() {
         String customDir = System.getProperty("gwent.workdir"); // Используется только в юнит-тестах
@@ -61,18 +102,6 @@ public abstract class BaseConfig {
         }
 
         return workDirPath.toFile();
-    }
-
-    /**
-     * Инициализирует конфигурацию: если файл отсутствует — создает со значениями по умолчанию,
-     * если существует — загружает данные и синхронизирует структуру.
-     */
-    protected final void init() {
-        if (!configFile.exists()) {
-            save();
-        } else {
-            load();
-        }
     }
 
     private void load() {
@@ -138,25 +167,12 @@ public abstract class BaseConfig {
         }
     }
 
-    /**
-     * Сохраняет текущие значения полей в JSON-файл.
-     */
-    public synchronized void save() {
-        try {
-            MAPPER.writeValue(configFile, this);
-        } catch (IOException e) {
-            LOGGER.error("Failed to save config to {}", configFile, e);
-        }
-    }
-
-    /**
-     * Хук пост-обработки для валидации или корректировки значений после загрузки.
-     */
-    protected void postLoad() {
-    }
+    // =========================================================================
+    // Getters / helpers for unit tests
+    // =========================================================================
 
     @JsonIgnore
-    public File getConfigFile() {
+    File getConfigFile() {
         return configFile;
     }
 }

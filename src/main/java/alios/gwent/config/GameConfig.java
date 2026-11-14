@@ -17,6 +17,10 @@ public class GameConfig extends BaseConfig {
     public double musicVolume = DEFAULT_VOLUME;
     public double sfxVolume = DEFAULT_VOLUME;
 
+    // =========================================================================
+    // Constructors and Initialization
+    // =========================================================================
+
     private GameConfig() {
         super("settings.json");
         init();
@@ -28,6 +32,10 @@ public class GameConfig extends BaseConfig {
         this.sfxVolume = clampVolume(sfxVolume);
     }
 
+    // =========================================================================
+    // Public Business Logic
+    // =========================================================================
+
     @JsonIgnore
     public int getResolutionWidth() {
         return resolution != null ? resolution.getWidth() : Resolution.R_1920_1080.getWidth();
@@ -37,6 +45,10 @@ public class GameConfig extends BaseConfig {
     public int getResolutionHeight() {
         return resolution != null ? resolution.getHeight() : Resolution.R_1920_1080.getHeight();
     }
+
+    // =========================================================================
+    // Private Helpers
+    // =========================================================================
 
     private static double clampVolume(double volume) {
         if (Double.isNaN(volume)) {
@@ -50,10 +62,10 @@ public class GameConfig extends BaseConfig {
     // =========================================================================
 
     public static GameConfig get() {
-        return Holder.INSTANCE;
+        return SingletonHolder.INSTANCE;
     }
 
-    private static class Holder {
+    private static class SingletonHolder {
         private static final GameConfig INSTANCE = new GameConfig();
     }
 }

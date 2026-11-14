@@ -7,42 +7,36 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/25"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="alios.gwent.ui.screens.MainMenuController"
-            prefWidth="1920.0"
-            prefHeight="1080.0"
-            styleClass="main-menu-root"
-            stylesheets="@../styles/gwent.css">
+<BorderPane prefHeight="1080.0" prefWidth="1920.0" styleClass="main-menu-root" stylesheets="@../styles/gwent.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alios.gwent.ui.screens.MainMenuController">
 
     <top>
         <VBox alignment="CENTER" spacing="12.0" BorderPane.alignment="CENTER">
             <padding>
-                <Insets top="80.0" bottom="20.0"/>
+                <Insets bottom="20.0" top="80.0" />
             </padding>
-            <Label text="ГВИНТ" styleClass="game-title"/>
-            <Label text="КАРТОЧНАЯ ИГРА ИЗ МИРА «ВЕДЬМАКА»" styleClass="game-subtitle"/>
-            <Label fx:id="resolutionLabel" text="1920 x 1080 (1080p)" styleClass="resolution-badge"/>
+            <Label styleClass="game-title" text="ГВИНТ" />
+            <Label styleClass="game-subtitle" text="КАРТОЧНАЯ ИГРА ИЗ МИРА «ВЕДЬМАКА»" />
+            <Label fx:id="resolutionLabel" styleClass="resolution-badge" text="1920 x 1080 (1080p)" />
         </VBox>
     </top>
 
     <center>
-        <VBox alignment="CENTER" spacing="20.0" maxWidth="450.0" BorderPane.alignment="CENTER">
-            <Button text="НОВАЯ ИГРА" onAction="#onStartGameButton" maxWidth="Infinity" styleClass="menu-button"/>
-            <Button text="КОЛОДЫ" onAction="#onDeckBuilderButton" maxWidth="Infinity" styleClass="menu-button"/>
-            <Button text="НАСТРОЙКИ" onAction="#onSettingsButton" maxWidth="Infinity" styleClass="menu-button"/>
-            <Button text="ВЫХОД" onAction="#onExitButton" maxWidth="Infinity" styleClass="menu-button"/>
+        <VBox alignment="CENTER" maxWidth="450.0" spacing="20.0" BorderPane.alignment="CENTER">
+            <Button maxWidth="Infinity" onAction="#onStartGameButton" styleClass="menu-button" text="НОВАЯ ИГРА" />
+            <Button maxWidth="Infinity" onAction="#onDeckBuilderButton" styleClass="menu-button" text="КОЛОДЫ" />
+            <Button maxWidth="Infinity" onAction="#onSettingsButton" styleClass="menu-button" text="НАСТРОЙКИ" />
+            <Button maxWidth="Infinity" onAction="#onExitButton" styleClass="menu-button" text="ВЫХОД" />
         </VBox>
     </center>
 
     <bottom>
         <HBox alignment="CENTER_LEFT" spacing="30.0" BorderPane.alignment="CENTER">
             <padding>
-                <Insets left="50.0" right="50.0" bottom="40.0"/>
+                <Insets bottom="40.0" left="50.0" right="50.0" />
             </padding>
-            <Label text="[ESC] Выход" styleClass="hint-label"/>
-            <Label text="[ENTER / ПРОБЕЛ] Выбор" styleClass="hint-label"/>
-            <Label fx:id="statusLabel" text="Готов к игре" styleClass="status-label"/>
+            <Label styleClass="hint-label" text="[ESC] Выход" />
+            <Label styleClass="hint-label" text="[ENTER / ПРОБЕЛ] Выбор" />
+            <Label fx:id="statusLabel" styleClass="status-label" text="Готов к игре" />
         </HBox>
     </bottom>
 

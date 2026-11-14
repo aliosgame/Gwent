@@ -20,23 +20,18 @@ public enum Resolution {
     private final int width;
     private final int height;
 
+    // =========================================================================
+    // Constructors
+    // =========================================================================
+
     Resolution(int width, int height) {
         this.width = width;
         this.height = height;
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    @Override
-    public String toString() {
-        return width + " x " + height;
-    }
+    // =========================================================================
+    // Public Business Logic
+    // =========================================================================
 
     /**
      * Автоматически определяет рекомендуемое разрешение (~70% от размеров основного монитора ОС).
@@ -71,6 +66,27 @@ public enum Resolution {
         }
         return List.of(values());
     }
+
+    // =========================================================================
+    // Getters and Setters
+    // =========================================================================
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    @Override
+    public String toString() {
+        return width + " x " + height;
+    }
+
+    // =========================================================================
+    // Private Helpers
+    // =========================================================================
 
     private static Resolution findClosest(int targetWidth, int targetHeight) {
         Resolution best = R_1920_1080;

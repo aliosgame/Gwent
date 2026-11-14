@@ -4,7 +4,6 @@ import alios.gwent.audio.AudioPlayer;
 import alios.gwent.config.GameConfig;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -17,7 +16,12 @@ public final class GlobalKeyboardHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalKeyboardHandler.class);
 
     private GlobalKeyboardHandler() {
+        throw new AssertionError("This class is not intended to create instances.");
     }
+
+    // =========================================================================
+    // Public Business Logic
+    // =========================================================================
 
     /**
      * Обрабатывает глобальные комбинации клавиш.
@@ -37,12 +41,16 @@ public final class GlobalKeyboardHandler {
         return false;
     }
 
+    // =========================================================================
+    // Private Helpers
+    // =========================================================================
+
     private static void handleToggleFullscreen() {
         GameConfig config = GameConfig.get();
         config.fullscreen = !config.fullscreen;
         config.save();
 
-        ScreenManager.applyDisplaySettings();
+        ScreenManager.syncFromConfig();
         ScreenManager.SETTINGS.syncFromConfig();
         LOGGER.info("Global shortcut: fullscreen toggled to {}", config.fullscreen);
     }
@@ -52,7 +60,7 @@ public final class GlobalKeyboardHandler {
         config.mute = !config.mute;
         config.save();
 
-        AudioPlayer.applyConfig();
+        AudioPlayer.syncFromConfig();
         ScreenManager.SETTINGS.syncFromConfig();
         LOGGER.info("Global shortcut: mute toggled to {}", config.mute);
     }

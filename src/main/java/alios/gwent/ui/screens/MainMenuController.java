@@ -24,30 +24,9 @@ public class MainMenuController extends BaseScreenController {
     public MainMenuController() {
     }
 
-    @FXML
-    private void onStartGameButton() {
-        if (statusLabel != null) {
-            statusLabel.setText("Режим дуэли будет доступен в следующем обновлении");
-        }
-    }
-
-    @FXML
-    private void onDeckBuilderButton() {
-        if (statusLabel != null) {
-            statusLabel.setText("Конструктор колод будет доступен в следующем обновлении");
-        }
-    }
-
-    @FXML
-    private void onSettingsButton() {
-        ScreenManager.show(ScreenManager.SETTINGS);
-    }
-
-    @FXML
-    private void onExitButton() {
-        LOGGER.info("Exit requested from MainMenu");
-        Platform.exit();
-    }
+    // =========================================================================
+    // Public Business Logic
+    // =========================================================================
 
     @Override
     public void onEnter() {
@@ -72,5 +51,34 @@ public class MainMenuController extends BaseScreenController {
             onExitButton();
             event.consume();
         }
+    }
+
+    // =========================================================================
+    // Private Helpers
+    // =========================================================================
+
+    @FXML
+    private void onStartGameButton() {
+        if (statusLabel != null) {
+            statusLabel.setText("Режим дуэли будет доступен в следующем обновлении");
+        }
+    }
+
+    @FXML
+    private void onDeckBuilderButton() {
+        if (statusLabel != null) {
+            statusLabel.setText("Конструктор колод будет доступен в следующем обновлении");
+        }
+    }
+
+    @FXML
+    private void onSettingsButton() {
+        ScreenManager.show(ScreenManager.SETTINGS);
+    }
+
+    @FXML
+    private void onExitButton() {
+        LOGGER.info("Exit requested from MainMenu");
+        Platform.exit();
     }
 }

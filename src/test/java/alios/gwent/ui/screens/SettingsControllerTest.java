@@ -109,7 +109,7 @@ class SettingsControllerTest {
             assertSame(ScreenManager.SETTINGS, ScreenManager.getActiveController());
 
             KeyEvent escEvent = new KeyEvent(KeyEvent.KEY_PRESSED, "", "", KeyCode.ESCAPE, false, false, false, false);
-            ScreenManager.getScene().getRoot().fireEvent(escEvent);
+            ScreenManager.SETTINGS.onKeyPressed(escEvent);
 
             assertSame(ScreenManager.MAIN_MENU, ScreenManager.getActiveController());
         });

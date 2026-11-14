@@ -63,8 +63,8 @@ class ScreenManagerTest {
     }
 
     @Test
-    @DisplayName("applyDisplaySettings resizes stage in windowed mode")
-    void testApplyDisplaySettingsResizesStage() {
+    @DisplayName("syncFromConfig resizes stage in windowed mode")
+    void testSyncFromConfigResizesStage() {
         JavaFxTestPlatform.runOnFxThread(() -> {
             Stage stage = ScreenManager.getStage();
             stage.show();
@@ -73,7 +73,7 @@ class ScreenManagerTest {
             config.fullscreen = false;
             config.resolution = Resolution.R_1280_720;
 
-            ScreenManager.applyDisplaySettings();
+            ScreenManager.syncFromConfig();
 
             double decorWidth = Math.max(0, stage.getWidth() - ScreenManager.getScene().getWidth());
             double decorHeight = Math.max(0, stage.getHeight() - ScreenManager.getScene().getHeight());

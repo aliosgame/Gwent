@@ -49,6 +49,7 @@ public final class AudioPlayer {
     private static boolean mute = GameConfig.get().mute;
 
     private AudioPlayer() {
+        throw new AssertionError("This class is not intended to create instances.");
     }
 
     // =========================================================================
@@ -119,9 +120,9 @@ public final class AudioPlayer {
     }
 
     /**
-     * Синхронизирует параметры громкости и mute из текущего GameConfig.
+     * Синхронизирует параметры громкости и mute с актуальным GameConfig.
      */
-    public static void applyConfig() {
+    public static void syncFromConfig() {
         GameConfig config = GameConfig.get();
         musicVolume = config.musicVolume;
         sfxVolume = config.sfxVolume;

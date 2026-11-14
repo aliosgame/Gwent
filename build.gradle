@@ -55,4 +55,5 @@ tasks.named('test') {
         '--enable-native-access=ALL-UNNAMED',
         '-Dfile.encoding=UTF-8'
     ]
+    systemProperty 'gwent.workdir', layout.buildDirectory.dir('test-workdir').get().asFile.absolutePath
 }

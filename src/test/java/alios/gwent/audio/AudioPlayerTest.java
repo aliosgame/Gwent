@@ -38,7 +38,7 @@ class AudioPlayerTest {
         config.sfxVolume = 0.45;
         config.mute = false;
 
-        AudioPlayer.applyConfig();
+        AudioPlayer.syncFromConfig();
 
         assertEquals(0.65, AudioPlayer.getMusicVolume(), 0.001);
         assertEquals(0.45, AudioPlayer.getSfxVolume(), 0.001);

@@ -11,23 +11,18 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/25"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="alios.gwent.ui.screens.SettingsController"
-            prefWidth="1920.0"
-            prefHeight="1080.0"
-            styleClass="settings-root, main-menu-root"
-            stylesheets="@../styles/gwent.css">
+<BorderPane prefHeight="1080.0" prefWidth="1920.0" styleClass="settings-root, main-menu-root" stylesheets="@../styles/gwent.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alios.gwent.ui.screens.SettingsController">
 
     <top>
         <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
             <padding>
-                <Insets top="60.0" bottom="20.0"/>
+                <Insets bottom="20.0" top="60.0" />
             </padding>
-            <Label text="НАСТРОЙКИ" styleClass="game-title"/>
-            <Label text="КОНФИГУРАЦИЯ ПРИЛОЖЕНИЯ" styleClass="game-subtitle"/>
+            <Label styleClass="game-title" text="НАСТРОЙКИ" />
+            <Label styleClass="game-subtitle" text="КОНФИГУРАЦИЯ ПРИЛОЖЕНИЯ" />
         </VBox>
     </top>
 
@@ -36,56 +31,65 @@
             <VBox maxWidth="920.0" spacing="22.0" styleClass="settings-panel">
 
                 <!-- Секция: Изображение -->
-                <Label text="ИЗОБРАЖЕНИЕ И ЭКРАН" styleClass="settings-section-title"/>
+                <Label styleClass="settings-section-title" text="ИЗОБРАЖЕНИЕ И ЭКРАН" />
 
                 <GridPane hgap="24.0" vgap="16.0">
                     <columnConstraints>
-                        <ColumnConstraints minWidth="220.0" prefWidth="230.0"/>
-                        <ColumnConstraints minWidth="280.0" prefWidth="290.0"/>
-                        <ColumnConstraints minWidth="260.0" hgrow="ALWAYS"/>
+                        <ColumnConstraints minWidth="220.0" prefWidth="230.0" />
+                        <ColumnConstraints minWidth="280.0" prefWidth="290.0" />
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="260.0" />
                     </columnConstraints>
 
-                    <Label text="Полноэкранный режим:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="settings-label"/>
-                    <CheckBox fx:id="fullscreenCheckBox" text="Включить (без рамок)" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="settings-checkbox"/>
+                    <Label styleClass="settings-label" text="Полноэкранный режим:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <CheckBox fx:id="fullscreenCheckBox" styleClass="settings-checkbox" text="Включить (без рамок)" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                    <Label text="Разрешение окна:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="settings-label"/>
-                    <ComboBox fx:id="resolutionComboBox" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="settings-combobox"/>
-                    <Label fx:id="fullscreenHintLabel" text="(полноэкранный режим)" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" styleClass="hint-label"/>
+                    <Label styleClass="settings-label" text="Разрешение окна:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <ComboBox fx:id="resolutionComboBox" prefWidth="290.0" styleClass="settings-combobox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <Label fx:id="fullscreenHintLabel" styleClass="hint-label" text="(полноэкранный режим)" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
                 </GridPane>
 
-                <Region styleClass="settings-separator"/>
+                <Region styleClass="settings-separator" />
 
                 <!-- Секция: Звук -->
-                <Label text="ЗВУК И МУЗЫКА" styleClass="settings-section-title"/>
+                <Label styleClass="settings-section-title" text="ЗВУК И МУЗЫКА" />
 
                 <GridPane hgap="24.0" vgap="16.0">
                     <columnConstraints>
-                        <ColumnConstraints minWidth="220.0" prefWidth="230.0"/>
-                        <ColumnConstraints minWidth="280.0" prefWidth="290.0"/>
-                        <ColumnConstraints minWidth="80.0" prefWidth="80.0"/>
+                        <ColumnConstraints minWidth="220.0" prefWidth="230.0" />
+                        <ColumnConstraints minWidth="280.0" prefWidth="290.0" />
+                        <ColumnConstraints minWidth="80.0" prefWidth="80.0" />
                     </columnConstraints>
 
-                    <Label text="Отключить звук:" GridPane.columnIndex="0" GridPane.rowIndex="0" styleClass="settings-label"/>
-                    <CheckBox fx:id="muteCheckBox" text="Без звука (Mute)" GridPane.columnIndex="1" GridPane.rowIndex="0" styleClass="settings-checkbox"/>
+                    <Label styleClass="settings-label" text="Отключить звук:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+                    <CheckBox fx:id="muteCheckBox" styleClass="settings-checkbox" text="Без звука (Mute)" GridPane.columnIndex="1" GridPane.rowIndex="0" />
 
-                    <Label text="Громкость музыки:" GridPane.columnIndex="0" GridPane.rowIndex="1" styleClass="settings-label"/>
-                    <Slider fx:id="musicVolumeSlider" min="0.0" max="100.0" value="80.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="1" styleClass="settings-slider"/>
-                    <Label fx:id="musicVolumeValueLabel" text="80%" GridPane.columnIndex="2" GridPane.rowIndex="1" styleClass="settings-value-label"/>
+                    <Label styleClass="settings-label" text="Громкость музыки:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+                    <Slider fx:id="musicVolumeSlider" max="100.0" min="0.0" prefWidth="290.0" styleClass="settings-slider" value="80.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    <Label fx:id="musicVolumeValueLabel" styleClass="settings-value-label" text="80%" GridPane.columnIndex="2" GridPane.rowIndex="1" />
 
-                    <Label text="Громкость эффектов:" GridPane.columnIndex="0" GridPane.rowIndex="2" styleClass="settings-label"/>
-                    <Slider fx:id="sfxVolumeSlider" min="0.0" max="100.0" value="80.0" prefWidth="290.0" GridPane.columnIndex="1" GridPane.rowIndex="2" styleClass="settings-slider"/>
-                    <Label fx:id="sfxVolumeValueLabel" text="80%" GridPane.columnIndex="2" GridPane.rowIndex="2" styleClass="settings-value-label"/>
+                    <Label styleClass="settings-label" text="Громкость эффектов:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+                    <Slider fx:id="sfxVolumeSlider" max="100.0" min="0.0" prefWidth="290.0" styleClass="settings-slider" value="80.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                    <Label fx:id="sfxVolumeValueLabel" styleClass="settings-value-label" text="80%" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+               <rowConstraints>
+                  <RowConstraints />
+                  <RowConstraints />
+                  <RowConstraints />
+               </rowConstraints>
                 </GridPane>
 
-                <Region styleClass="settings-separator"/>
+                <Region styleClass="settings-separator" />
 
                 <!-- Кнопки управления -->
                 <HBox alignment="CENTER" spacing="30.0">
                     <padding>
-                        <Insets top="8.0"/>
+                        <Insets top="8.0" />
                     </padding>
-                    <Button fx:id="saveButton" text="СОХРАНИТЬ" onAction="#onSaveButton" styleClass="menu-button, settings-action-button"/>
-                    <Button fx:id="cancelButton" text="ОТМЕНА" onAction="#onCancelButton" styleClass="menu-button, settings-action-button"/>
+                    <Button onAction="#onSaveButton" styleClass="menu-button, settings-action-button" text="СОХРАНИТЬ" />
+                    <Button onAction="#onCancelButton" styleClass="menu-button, settings-action-button" text="ОТМЕНА" />
                 </HBox>
 
             </VBox>
@@ -95,11 +99,11 @@
     <bottom>
         <HBox alignment="CENTER_LEFT" spacing="30.0" BorderPane.alignment="CENTER">
             <padding>
-                <Insets left="50.0" right="50.0" bottom="35.0"/>
+                <Insets bottom="35.0" left="50.0" right="50.0" />
             </padding>
-            <Label text="[ESC / BACKSPACE] Отмена" styleClass="hint-label"/>
-            <Label text="[ALT + ENTER] Полный экран" styleClass="hint-label"/>
-            <Label text="[ALT + M] Заглушить звук" styleClass="hint-label"/>
+            <Label styleClass="hint-label" text="[ESC / BACKSPACE] Отмена" />
+            <Label styleClass="hint-label" text="[ALT + ENTER] Полный экран" />
+            <Label styleClass="hint-label" text="[ALT + M] Заглушить звук" />
         </HBox>
     </bottom>
 
