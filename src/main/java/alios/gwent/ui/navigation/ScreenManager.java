@@ -211,6 +211,13 @@ public final class ScreenManager {
         return activeController;
     }
 
+    /**
+     * Возвращает текущий коэффициент трансформационного масштабирования вьюпорта.
+     */
+    public static double getScale() {
+        return viewport != null ? viewport.getScaleX() : 1.0;
+    }
+
     // =========================================================================
     // Private Helpers
     // =========================================================================

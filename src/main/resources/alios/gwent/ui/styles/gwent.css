@@ -166,7 +166,8 @@
     -fx-cursor: hand;
 }
 
-.settings-combobox:hover {
+.settings-combobox:hover,
+.settings-combobox:focused {
     -fx-border-color: #c89e5a;
     -fx-effect: dropshadow(gaussian, rgba(200, 158, 90, 0.35), 8, 0.2, 0, 0);
 }
@@ -176,7 +177,7 @@
     -fx-cursor: default;
 }
 
-.settings-combobox .list-cell {
+.settings-combobox > .list-cell {
     -fx-text-fill: #d8c7a6;
     -fx-font-size: 15px;
     -fx-background-color: transparent;
@@ -190,6 +191,7 @@
     -fx-background-color: #c89e5a;
 }
 
+/* Выпадающий список ComboBox (стилизован под The Witcher 3) */
 .combo-box-popup .list-view {
     -fx-background-color: #16130f;
     -fx-border-color: #6a573b;
@@ -202,14 +204,18 @@
     -fx-text-fill: #d8c7a6;
     -fx-padding: 8px 14px;
     -fx-font-size: 15px;
+    -fx-cursor: hand;
 }
 
-.combo-box-popup .list-cell:hover {
-    -fx-background-color: #3b3022;
-    -fx-text-fill: #ffffff;
+.combo-box-popup .list-cell:selected,
+.combo-box-popup .list-cell:filled:selected {
+    -fx-background-color: #16130f;
+    -fx-text-fill: #d8c7a6;
+    -fx-font-weight: normal;
 }
 
-.combo-box-popup .list-cell:selected {
+.combo-box-popup .list-cell:hover,
+.combo-box-popup .list-cell:filled:hover {
     -fx-background-color: #4a3b27;
     -fx-text-fill: #f3e5ab;
 }

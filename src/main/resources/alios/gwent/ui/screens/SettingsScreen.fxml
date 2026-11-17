@@ -46,10 +46,10 @@
                     <Label styleClass="settings-label" text="Разрешение окна:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
                     <ComboBox fx:id="resolutionComboBox" prefWidth="290.0" styleClass="settings-combobox" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                     <Label fx:id="fullscreenHintLabel" styleClass="hint-label" text="(полноэкранный режим)" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-               <rowConstraints>
-                  <RowConstraints />
-                  <RowConstraints />
-               </rowConstraints>
+                    <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                    </rowConstraints>
                 </GridPane>
 
                 <Region styleClass="settings-separator" />
@@ -74,11 +74,11 @@
                     <Label styleClass="settings-label" text="Громкость эффектов:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
                     <Slider fx:id="sfxVolumeSlider" max="100.0" min="0.0" prefWidth="290.0" styleClass="settings-slider" value="80.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                     <Label fx:id="sfxVolumeValueLabel" styleClass="settings-value-label" text="80%" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-               <rowConstraints>
-                  <RowConstraints />
-                  <RowConstraints />
-                  <RowConstraints />
-               </rowConstraints>
+                    <rowConstraints>
+                        <RowConstraints />
+                        <RowConstraints />
+                        <RowConstraints />
+                    </rowConstraints>
                 </GridPane>
 
                 <Region styleClass="settings-separator" />

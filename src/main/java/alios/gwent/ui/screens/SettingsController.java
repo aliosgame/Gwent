@@ -5,8 +5,8 @@ import alios.gwent.config.GameConfig;
 import alios.gwent.config.Resolution;
 import alios.gwent.ui.navigation.BaseScreenController;
 import alios.gwent.ui.navigation.ScreenManager;
+import alios.gwent.ui.util.FxUtils;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -43,6 +43,8 @@ public class SettingsController extends BaseScreenController {
 
     @FXML
     private void initialize() {
+        FxUtils.enableComboBoxViewportScaling(resolutionComboBox);
+
         fullscreenCheckBox.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
             resolutionComboBox.setDisable(isSelected);
             if (fullscreenHintLabel != null) {
