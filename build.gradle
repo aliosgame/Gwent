@@ -8,7 +8,9 @@ version = '1.0'
 
 def runJvmArgs = [
         '--enable-native-access=javafx.graphics,javafx.media',
-        '-Dfile.encoding=UTF-8'
+        '-Dfile.encoding=UTF-8',
+        '-Dsun.stdout.encoding=UTF-8',
+        '-Dsun.stderr.encoding=UTF-8'
 ]
 
 java {
@@ -53,7 +55,9 @@ tasks.named('test') {
     useJUnitPlatform()
     jvmArgs = [
         '--enable-native-access=ALL-UNNAMED',
-        '-Dfile.encoding=UTF-8'
+        '-Dfile.encoding=UTF-8',
+        '-Dsun.stdout.encoding=UTF-8',
+        '-Dsun.stderr.encoding=UTF-8'
     ]
     systemProperty 'gwent.workdir', layout.buildDirectory.dir('test-workdir').get().asFile.absolutePath
 }
