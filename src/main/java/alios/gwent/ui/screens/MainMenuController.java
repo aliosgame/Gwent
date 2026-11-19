@@ -1,6 +1,5 @@
 package alios.gwent.ui.screens;
 
-import alios.gwent.config.GameConfig;
 import alios.gwent.ui.navigation.BaseScreenController;
 import alios.gwent.ui.navigation.ScreenManager;
 import javafx.application.Platform;
@@ -18,7 +17,6 @@ public class MainMenuController extends BaseScreenController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(MainMenuController.class);
 
-    private @FXML Label resolutionLabel;
     private @FXML Label statusLabel;
 
     public MainMenuController() {
@@ -31,10 +29,6 @@ public class MainMenuController extends BaseScreenController {
     @Override
     public void onEnter() {
         LOGGER.info("Entered MainMenu");
-        GameConfig config = GameConfig.get();
-        if (resolutionLabel != null) {
-            resolutionLabel.setText(String.format("%s (Reference: 1080p)", config.resolution));
-        }
         if (statusLabel != null) {
             statusLabel.setText("Главное меню активно");
         }

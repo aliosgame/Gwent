@@ -17,18 +17,24 @@
 <BorderPane prefHeight="1080.0" prefWidth="1920.0" styleClass="settings-root, main-menu-root" stylesheets="@../styles/gwent.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alios.gwent.ui.screens.SettingsController">
 
     <top>
-        <VBox alignment="CENTER" spacing="10.0" BorderPane.alignment="CENTER">
+        <VBox alignment="TOP_CENTER" prefHeight="250.0" spacing="4.0" styleClass="screen-header" BorderPane.alignment="CENTER">
             <padding>
-                <Insets bottom="20.0" top="60.0" />
+                <Insets bottom="0.0" top="30.0" />
             </padding>
-            <Label styleClass="game-title" text="НАСТРОЙКИ" />
-            <Label styleClass="game-subtitle" text="КОНФИГУРАЦИЯ ПРИЛОЖЕНИЯ" />
+            <Label styleClass="game-title" text="ГВИНТ" />
+            <Label styleClass="game-subtitle" text="«Поиски Цири подождут... Сыграем в гвинт?»" />
         </VBox>
     </top>
 
     <center>
         <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+            <BorderPane.margin>
+                <Insets top="-50.0" />
+            </BorderPane.margin>
             <VBox maxWidth="920.0" spacing="22.0" styleClass="settings-panel">
+
+                <!-- Заголовок окна настроек -->
+                <Label alignment="CENTER" maxWidth="Infinity" styleClass="settings-window-title" text="НАСТРОЙКИ" />
 
                 <!-- Секция: Изображение -->
                 <Label styleClass="settings-section-title" text="ИЗОБРАЖЕНИЕ И ЭКРАН" />
@@ -91,13 +97,16 @@
                     <Button onAction="#onSaveButton" styleClass="menu-button, settings-action-button" text="СОХРАНИТЬ" />
                     <Button onAction="#onCancelButton" styleClass="menu-button, settings-action-button" text="ОТМЕНА" />
                 </HBox>
+            <VBox.margin>
+               <Insets />
+            </VBox.margin>
 
             </VBox>
         </VBox>
     </center>
 
     <bottom>
-        <HBox alignment="CENTER_LEFT" spacing="30.0" BorderPane.alignment="CENTER">
+        <HBox alignment="CENTER_LEFT" spacing="30.0" styleClass="screen-footer" BorderPane.alignment="CENTER">
             <padding>
                 <Insets bottom="35.0" left="50.0" right="50.0" />
             </padding>

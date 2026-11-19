@@ -10,19 +10,24 @@
 <BorderPane prefHeight="1080.0" prefWidth="1920.0" styleClass="main-menu-root" stylesheets="@../styles/gwent.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="alios.gwent.ui.screens.MainMenuController">
 
     <top>
-        <VBox alignment="CENTER" spacing="12.0" BorderPane.alignment="CENTER">
+        <VBox alignment="TOP_CENTER" prefHeight="250.0" spacing="4.0" styleClass="screen-header" BorderPane.alignment="CENTER">
             <padding>
-                <Insets bottom="20.0" top="80.0" />
+                <Insets bottom="0.0" top="30.0" />
             </padding>
             <Label styleClass="game-title" text="ГВИНТ" />
-            <Label styleClass="game-subtitle" text="КАРТОЧНАЯ ИГРА ИЗ МИРА «ВЕДЬМАКА»" />
-            <Label fx:id="resolutionLabel" styleClass="resolution-badge" text="1920 x 1080 (1080p)" />
+            <Label styleClass="game-subtitle" text="«Поиски Цири подождут... Сыграем в гвинт?»" />
         </VBox>
     </top>
 
     <center>
         <VBox alignment="CENTER" maxWidth="450.0" spacing="20.0" BorderPane.alignment="CENTER">
-            <Button maxWidth="Infinity" onAction="#onStartGameButton" styleClass="menu-button" text="НОВАЯ ИГРА" />
+            <BorderPane.margin>
+                <Insets top="-60.0" />
+            </BorderPane.margin>
+            <Button maxWidth="Infinity" onAction="#onStartGameButton" styleClass="menu-button" text="НОВАЯ ИГРА">
+            <VBox.margin>
+               <Insets />
+            </VBox.margin></Button>
             <Button maxWidth="Infinity" onAction="#onDeckBuilderButton" styleClass="menu-button" text="КОЛОДЫ" />
             <Button maxWidth="Infinity" onAction="#onSettingsButton" styleClass="menu-button" text="НАСТРОЙКИ" />
             <Button maxWidth="Infinity" onAction="#onExitButton" styleClass="menu-button" text="ВЫХОД" />
@@ -30,9 +35,9 @@
     </center>
 
     <bottom>
-        <HBox alignment="CENTER_LEFT" spacing="30.0" BorderPane.alignment="CENTER">
+        <HBox alignment="CENTER_LEFT" spacing="30.0" styleClass="screen-footer" BorderPane.alignment="CENTER">
             <padding>
-                <Insets bottom="40.0" left="50.0" right="50.0" />
+                <Insets bottom="35.0" left="50.0" right="50.0" />
             </padding>
             <Label styleClass="hint-label" text="[ESC] Выход" />
             <Label styleClass="hint-label" text="[ENTER / ПРОБЕЛ] Выбор" />
